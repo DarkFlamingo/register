@@ -1,8 +1,8 @@
 import { user as userService } from '../../services/services';
 import { ServerError } from '../../helpers/helpers';
 
-const checkRole = role => (req, _res, next) => {
-  if (req.user.role === role) {
+const checkRoles = roles => (req, _res, next) => {
+  if (roles.some(role => role === req.user.role)) {
     next();
   } else {
     throw new ServerError({
@@ -12,4 +12,4 @@ const checkRole = role => (req, _res, next) => {
   }
 };
 
-export { checkRole };
+export { checkRoles };

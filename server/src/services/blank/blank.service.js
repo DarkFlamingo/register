@@ -1,6 +1,9 @@
+import { ServerError } from '../../helpers/helpers';
+
 class Blank {
-  constructor({ blankRepository }) {
+  constructor({ blankRepository, codeRepository }) {
     this._blankRepository = blankRepository;
+    this._codeRepository = codeRepository;
   }
 
   async checkBlank({ series, number }) {
@@ -12,6 +15,24 @@ class Blank {
       return blank;
     } else {
       return null;
+    }
+  }
+
+  async addBlank({ userId, data }) {
+    const { code, name, ...blankData } = data;
+
+    const codeItem = await this._codeRepository.create({ code, name });
+
+    if (codeItem) {
+      const blank = await this._blankRepository.create({
+        ...blankData,
+        userId,
+        codeId: codeItem.id
+      });
+
+      return blank;
+    } else {
+      throw new ServerError({ status: 400, message: 'Bad request' });
     }
   }
 }

@@ -2,7 +2,8 @@ import {
   user as userRepository,
   authorities as authoritiesRepository,
   passport as passportRepository,
-  blank as blankRepository
+  blank as blankRepository,
+  code as codeRepository
 } from '../data/repositories/repositories';
 import { Auth } from './auth/auth.service';
 import { Blank } from './blank/blank.service';
@@ -22,7 +23,8 @@ const user = new User({
 });
 
 const blank = new Blank({
-  blankRepository
+  blankRepository,
+  codeRepository
 });
 
 export { auth, user, blank };

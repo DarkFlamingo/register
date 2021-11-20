@@ -38,4 +38,8 @@ const blank = new Blank({
   codeModel: CodeModel
 });
 
-export { user, authorities, passport, blank };
+const code = new Code({
+  codeModel: CodeModel
+});
+
+export { user, authorities, passport, blank, code };

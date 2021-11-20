@@ -1,20 +1,23 @@
 import { UserApiPath, Role } from '../../common/enums/enums';
-import { checkRole } from '../../middlewares/middlewares';
+import { checkRoles } from '../../middlewares/middlewares';
 
 const initUser = (Router, services) => {
   const { user: userService } = services;
   const router = Router();
 
-  router.get(UserApiPath.REGISTRARS, checkRole(Role.Admin), (req, res, next) =>
-    userService
-      .getAllRegistrar()
-      .then(blank => res.send(blank))
-      .catch(next)
+  router.get(
+    UserApiPath.REGISTRARS,
+    checkRoles([Role.Admin]),
+    (req, res, next) =>
+      userService
+        .getAllRegistrar()
+        .then(blank => res.send(blank))
+        .catch(next)
   );
 
   router.patch(
     UserApiPath.REGISTRARS_BLOCK,
-    checkRole(Role.Admin),
+    checkRoles([Role.Admin]),
     (req, res, next) =>
       userService
         .changeActiveStatus({ registrarId: req.query.id, isActive: false })
@@ -24,7 +27,7 @@ const initUser = (Router, services) => {
 
   router.patch(
     UserApiPath.REGISTRARS_UNBLOCK,
-    checkRole(Role.Admin),
+    checkRoles([Role.Admin]),
     (req, res, next) =>
       userService
         .changeActiveStatus({ registrarId: req.query.id, isActive: true })
