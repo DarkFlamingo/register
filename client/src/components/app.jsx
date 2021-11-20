@@ -6,7 +6,9 @@ import { storage } from 'src/services/services';
 import { profileActionCreator } from 'src/store/actions';
 import {
   Spinner,
-  PublicRoute
+  PublicRoute,
+  PrivateRoute,
+  Button
 } from 'src/components/common/common';
 import SignPage from 'src/components/sign/sign';
 import NotFoundPage from 'src/components/not-found/not-found';
@@ -30,11 +32,24 @@ const Routing = () => {
     return <Spinner isOverflow />;
   }
 
+  const handleLogOut = () => {
+    dispatch(profileActionCreator.logout());
+  };
+
   return (
     <div className="fill">
       <main className="fill">
         <Switch>
-          <PublicRoute exact path={[AppRoute.LOGIN, AppRoute.REGISTRATION]} component={SignPage} />
+          <PublicRoute
+            exact
+            path={[AppRoute.LOGIN, AppRoute.REGISTRATION]}
+            component={SignPage}
+          />
+          <PrivateRoute
+            exact
+            path={AppRoute.ROOT}
+            component={() => <Button onClick={handleLogOut}>fdsfad</Button>}
+          />
           <Route path={AppRoute.ANY} exact component={NotFoundPage} />
         </Switch>
       </main>

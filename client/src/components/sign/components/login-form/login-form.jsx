@@ -1,6 +1,5 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import validator from 'validator';
 import {
   ButtonType,
   ButtonSize,
@@ -17,15 +16,15 @@ import {
 import styles from './styles.module.scss';
 
 const LoginForm = ({ onLogin }) => {
-  const [email, setEmail] = React.useState('');
+  const [login, setLogin] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isEmailValid, setIsEmailValid] = React.useState(true);
+  const [isLoginValid, setIsLoginValid] = React.useState(true);
   const [isPasswordValid, setIsPasswordValid] = React.useState(true);
 
   const emailChanged = data => {
-    setEmail(data);
-    setIsEmailValid(true);
+    setLogin(data);
+    setIsLoginValid(true);
   };
 
   const passwordChanged = data => {
@@ -34,13 +33,13 @@ const LoginForm = ({ onLogin }) => {
   };
 
   const handleLoginClick = () => {
-    const isValid = isEmailValid && isPasswordValid;
+    const isValid = isLoginValid && isPasswordValid;
     if (!isValid || isLoading) {
       return;
     }
     setIsLoading(true);
 
-    onLogin({ email, password }).catch(() => {
+    onLogin({ login, password }).catch(() => {
       // TODO: show error
       setIsLoading(false);
     });
@@ -48,18 +47,18 @@ const LoginForm = ({ onLogin }) => {
 
   return (
     <>
-      <h2 className={styles.title}>Login to your account</h2>
       <Form name="loginForm" size="large" onSubmit={handleLoginClick}>
-        <Segment>
+        <Segment className={styles['login-wrapper']}>
+          <h2 className={styles.title}>Login to your account</h2>
           <Form.Input
             fluid
             icon="at"
             iconPosition="left"
-            placeholder="Email"
-            type="email"
-            error={!isEmailValid}
+            placeholder="login"
+            type="login"
+            error={!isLoginValid}
             onChange={ev => emailChanged(ev.target.value)}
-            onBlur={() => setIsEmailValid(validator.isEmail(email))}
+            onBlur={() => setIsLoginValid(Boolean(login))}
           />
           <Form.Input
             fluid
@@ -71,16 +70,18 @@ const LoginForm = ({ onLogin }) => {
             onChange={ev => passwordChanged(ev.target.value)}
             onBlur={() => setIsPasswordValid(Boolean(password))}
           />
-          <Button
-            type={ButtonType.SUBMIT}
-            color={ButtonColor.TEAL}
-            size={ButtonSize.LARGE}
-            isLoading={isLoading}
-            isFluid
-            isPrimary
-          >
-            Login
-          </Button>
+          <div className={styles['btn-wrapper']}>
+            <Button
+              type={ButtonType.SUBMIT}
+              color={ButtonColor.TEAL}
+              size={ButtonSize.LARGE}
+              isLoading={isLoading}
+              isFluid
+              isPrimary
+            >
+              Login
+            </Button>
+          </div>
         </Segment>
       </Form>
       <Message>
