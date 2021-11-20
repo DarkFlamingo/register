@@ -16,6 +16,14 @@ class User {
 
     return registrars;
   }
+
+  async changeActiveStatus({ registrarId, isActive }) {
+    const registrar = await this._userRepository.updateById(registrarId, {
+      isActive
+    });
+
+    return registrar;
+  }
 }
 
 export { User };

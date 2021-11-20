@@ -12,6 +12,26 @@ const initUser = (Router, services) => {
       .catch(next)
   );
 
+  router.patch(
+    UserApiPath.REGISTRARS_BLOCK,
+    checkRole(Role.Admin),
+    (req, res, next) =>
+      userService
+        .changeActiveStatus({ registrarId: req.query.id, isActive: false })
+        .then(registrar => res.send(registrar))
+        .catch(next)
+  );
+
+  router.patch(
+    UserApiPath.REGISTRARS_UNBLOCK,
+    checkRole(Role.Admin),
+    (req, res, next) =>
+      userService
+        .changeActiveStatus({ registrarId: req.query.id, isActive: true })
+        .then(registrar => res.send(registrar))
+        .catch(next)
+  );
+
   return router;
 };
 
