@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 
 const init = orm => {
   const User = orm.define(
-    'user',
+    'users',
     {
       email: {
         allowNull: false,
