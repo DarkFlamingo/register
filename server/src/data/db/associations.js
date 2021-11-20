@@ -10,28 +10,27 @@ export default models => {
     OldValue,
     Organisation,
     Passport,
-    Position,
-    User
+    Position
   } = models;
 
-  Code.belongsTo(Blank);
+  Code.hasOne(Blank);
 
-  Blank.hasOne(Code);
-  Blank.belongsTo(Log);
-  Blank.hasOne(User);
-  Blank.belongsTo(Extract);
+  Blank.belongsTo(Code);
+  Blank.hasOne(Log);
+  Blank.belongsTo(User);
+  Blank.hasOne(Extract);
 
-  Authorities.belongsTo(Passport);
+  Authorities.hasOne(Passport);
 
-  Passport.hasOne(Authorities);
-  Passport.belongsTo(User);
+  Passport.belongsTo(Authorities);
+  Passport.hasOne(User);
 
-  User.hasOne(Passport);
+  User.belongsTo(Passport);
   User.hasOne(Organisation);
   User.hasOne(Position);
-  User.belongsTo(Log);
-  User.belongsTo(Blank);
-  User.belongsTo(Extract);
+  User.hasMany(Log);
+  User.hasMany(Blank);
+  User.hasMany(Extract);
 
   Organisation.belongsTo(User);
 
@@ -40,9 +39,9 @@ export default models => {
   OldValue.belongsTo(Log);
 
   Log.hasOne(OldValue);
-  Log.hasOne(User);
-  Log.hasOne(Blank);
+  Log.belongsTo(User);
+  Log.belongsTo(Blank);
 
-  Extract.hasOne(Blank);
-  Extract.hasOne(User);
+  Extract.belongsTo(Blank);
+  Extract.belongsTo(User);
 };

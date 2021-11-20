@@ -1,8 +1,10 @@
 import { encrypt, createToken } from '../../helpers/helpers';
 
 class Auth {
-  constructor({ userRepository }) {
+  constructor({ userRepository, authoritiesRepository, passportRepository }) {
     this._userRepository = userRepository;
+    this._authoritiesRepository = authoritiesRepository;
+    this._passportRepository = passportRepository;
 
     this.register = this.register.bind(this);
   }
@@ -14,11 +16,45 @@ class Auth {
     };
   }
 
-  async register({ password, ...userData }) {
-    console.log('here');
+  async register({ login, password }, body) {
+    const { unitCode, unitName, unitAddress, isActive } = body;
+    const newAthorities = await this._authoritiesRepository.addAuthorities({
+      unitCode,
+      unitName,
+      unitAddress,
+      isActive
+    });
+
+    const {
+      name,
+      surname,
+      patronymic,
+      series,
+      dateOfExpiry,
+      dateOfIssue,
+      documentNumber,
+      RNTRC
+    } = body;
+    const authorityId = newAthorities.id;
+    const newPassport = await this._passportRepository.addPassport({
+      name,
+      surname,
+      patronymic,
+      series,
+      dateOfExpiry,
+      dateOfIssue,
+      documentNumber,
+      RNTRC,
+      authorityId
+    });
+
+    const passportId = newPassport.id;
     const newUser = await this._userRepository.addUser({
-      ...userData,
-      password: await encrypt(password)
+      login,
+      role: 'user',
+      isActive: true,
+      password: await encrypt(password),
+      passportId
     });
 
     return this.login(newUser);

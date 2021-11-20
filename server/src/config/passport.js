@@ -12,36 +12,21 @@ const options = {
 
 passport.use(
   'login',
-  new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
-    try {
-      const user = await userRepository.getByEmail(email);
-      if (!user) {
-        return done({ status: 401, message: 'Incorrect email.' }, false);
-      }
-
-      return await cryptCompare(password, user.password)
-        ? done(null, user)
-        : done({ status: 401, message: 'Passwords do not match.' }, null, false);
-    } catch (err) {
-      return done(err);
-    }
-  })
-);
-
-passport.use(
-  'register',
   new LocalStrategy(
-    { passReqToCallback: true },
-    async ({ body: { email } }, username, password, done) => {
+    { usernameField: 'login' },
+    async (login, password, done) => {
       try {
-        const userByEmail = await userRepository.getByEmail(email);
-        if (userByEmail) {
-          return done({ status: 401, message: 'Email is already taken.' }, null);
+        const user = await userRepository.getByLogin(login);
+        if (!user) {
+          return done({ status: 401, message: 'Incorrect login.' }, false);
         }
-
-        return await userRepository.getByUsername(username)
-          ? done({ status: 401, message: 'Username is already taken.' }, null)
-          : done(null, { email, username, password });
+        return (await cryptCompare(password, user.password))
+          ? done(null, user)
+          : done(
+              { status: 401, message: 'Passwords do not match.' },
+              null,
+              false
+            );
       } catch (err) {
         return done(err);
       }
@@ -49,11 +34,37 @@ passport.use(
   )
 );
 
-passport.use(new JwtStrategy(options, async ({ id }, done) => {
-  try {
-    const user = await userRepository.getById(id);
-    return user ? done(null, user) : done({ status: 401, message: 'Token is invalid.' }, null);
-  } catch (err) {
-    return done(err);
-  }
-}));
+passport.use(
+  'register',
+  new LocalStrategy(
+    { usernameField: 'login' },
+    async (login, password, done) => {
+      try {
+        const userByLogin = await userRepository.getByLogin(login);
+        if (userByLogin) {
+          return done(
+            { status: 401, message: 'Email is already taken.' },
+            null
+          );
+        }
+
+        return done(null, { login, password });
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
+);
+
+passport.use(
+  new JwtStrategy(options, async ({ id }, done) => {
+    try {
+      const user = await userRepository.getById(id);
+      return user
+        ? done(null, user)
+        : done({ status: 401, message: 'Token is invalid.' }, null);
+    } catch (err) {
+      return done(err);
+    }
+  })
+);

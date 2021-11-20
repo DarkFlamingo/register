@@ -1,7 +1,7 @@
 import { sequelize as orm } from '../db/connection';
 import associate from '../db/associations';
 import { init as initUserModel } from './user/user.model';
-import { init as initAuthoritiesModel } from './authorization/authorization.model';
+import { init as initAuthoritiesModel } from './authorities/authorities.model';
 import { init as initBlankModel } from './blank/blank.model';
 import { init as initCodeModel } from './code/code.model';
 import { init as initExtractModel } from './extract/extract.model';

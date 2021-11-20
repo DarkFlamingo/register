@@ -9,7 +9,7 @@ const init = orm => {
         type: DataTypes.STRING
       }
     },
-    {}
+    { timestamps: false, createdAt: false, updatedAt: false }
   );
 
   return Position;

@@ -35,9 +35,9 @@ const init = orm => {
       RNTRC: {
         allowNull: false,
         type: DataTypes.INTEGER
-      },
+      }
     },
-    {}
+    { timestamps: false, createdAt: false, updatedAt: false }
   );
 
   return Passport;

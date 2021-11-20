@@ -21,7 +21,7 @@ const init = orm => {
         type: DataTypes.BOOLEAN
       }
     },
-    {}
+    { timestamps: false, createdAt: false, updatedAt: false }
   );
 
   return Extract;

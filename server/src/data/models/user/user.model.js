@@ -4,24 +4,28 @@ const init = orm => {
   const User = orm.define(
     'users',
     {
-      email: {
+      login: {
         allowNull: false,
         type: DataTypes.STRING
       },
-      username: {
-        allowNull: false,
-        type: DataTypes.STRING,
-        unique: true
-      },
       password: {
         allowNull: false,
-        type: DataTypes.STRING,
-        unique: true
+        type: DataTypes.STRING
       },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE
+      role: {
+        allowNull: false,
+        type: DataTypes.STRING
+      },
+      isActive: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN
+      }
     },
-    {}
+    {
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false
+    }
   );
 
   return User;

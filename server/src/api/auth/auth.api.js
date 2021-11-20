@@ -16,7 +16,7 @@ const initAuth = (Router, services) => {
       .then(data => res.send(data))
       .catch(next))
     .post(AuthApiPath.REGISTER, registrationMiddleware, (req, res, next) => authService
-      .register(req.user)
+      .register(req.user, req.body)
       .then(data => res.send(data))
       .catch(next))
     .get(AuthApiPath.USER, jwtMiddleware, (req, res, next) => userService

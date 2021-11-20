@@ -1,27 +1,35 @@
 import { Abstract } from '../abstract/abstract.repository';
 
 class User extends Abstract {
-  constructor({ userModel, imageModel }) {
+  constructor({ userModel }) {
     super(userModel);
-    this._imageModel = imageModel;
   }
 
   addUser(user) {
+    console.log(user);
     return this.create(user);
   }
 
-  getByEmail(email) {
-    return this.model.findOne({ where: { email } });
+  getByLogin(login) {
+    return this.model.findOne({
+      group: ['users.id'],
+      attributes: ['id', 'login', 'password', 'role', 'isActive'],
+      where: { login }
+    });
   }
 
   getByUsername(username) {
-    return this.model.findOne({ where: { username } });
+    return this.model.findOne({
+      group: ['users.id'],
+      attributes: ['id', 'login', 'password', 'role', 'isActive'],
+      where: { username }
+    });
   }
 
   getUserById(id) {
     return this.model.findOne({
-      group: ['user.id'],
-      attributes: ['id', 'createdAt', 'email', 'updatedAt', 'username'],
+      group: ['users.id'],
+      attributes: ['id', 'login', 'password', 'role', 'isActive'],
       where: { id }
     });
   }
