@@ -33,4 +33,9 @@ const passport = new Passport({
   passportModel: PassportModel
 });
 
-export { user, authorities, passport };
+const blank = new Blank({
+  blankModel: BlankModel,
+  codeModel: CodeModel
+});
+
+export { user, authorities, passport, blank };

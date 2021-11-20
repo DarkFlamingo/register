@@ -1,9 +1,11 @@
 import {
   user as userRepository,
   authorities as authoritiesRepository,
-  passport as passportRepository
+  passport as passportRepository,
+  blank as blankRepository
 } from '../data/repositories/repositories';
 import { Auth } from './auth/auth.service';
+import { Blank } from './blank/blank.service';
 import { Http } from './http/http.service';
 import { User } from './user/user.service';
 
@@ -14,8 +16,13 @@ const auth = new Auth({
   authoritiesRepository,
   passportRepository
 });
+
 const user = new User({
   userRepository
 });
 
-export { auth, user };
+const blank = new Blank({
+  blankRepository
+});
+
+export { auth, user, blank };

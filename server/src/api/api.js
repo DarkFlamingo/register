@@ -1,6 +1,7 @@
 import { ApiPath } from '../common/enums/enums';
-import { auth, user } from '../services/services';
+import { auth, user, blank } from '../services/services';
 import { initAuth } from './auth/auth.api';
+import { initBlank } from './blank/blank.api';
 
 // register all routes
 const initApi = Router => {
@@ -11,6 +12,12 @@ const initApi = Router => {
     initAuth(Router, {
       auth,
       user
+    })
+  );
+  apiRouter.use(
+    ApiPath.BLANK,
+    initBlank(Router, {
+      blank
     })
   );
 

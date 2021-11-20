@@ -11,6 +11,10 @@ const init = orm => {
       series: {
         allowNull: false,
         type: DataTypes.STRING
+      },
+      number: {
+        allowNull: false,
+        type: DataTypes.INTEGER
       }
     },
     { timestamps: false, createdAt: false, updatedAt: false }
