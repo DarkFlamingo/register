@@ -1,6 +1,7 @@
 const ApiPath = {
   AUTH: '/auth',
-  BLANK: '/blank'
+  BLANK: '/blanks',
+  USER: '/users'
 };
 
 export { ApiPath };

@@ -1,4 +1,5 @@
 import { encrypt, createToken } from '../../helpers/helpers';
+import { Role } from '../../common/enums/enums';
 
 class Auth {
   constructor({ userRepository, authoritiesRepository, passportRepository }) {
@@ -51,7 +52,7 @@ class Auth {
     const passportId = newPassport.id;
     const newUser = await this._userRepository.addUser({
       login,
-      role: 'user',
+      role: Role.User,
       isActive: true,
       password: await encrypt(password),
       passportId

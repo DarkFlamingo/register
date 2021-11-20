@@ -1,3 +1,5 @@
+import { Role } from '../../common/enums/enums';
+
 class User {
   constructor({ userRepository }) {
     this._userRepository = userRepository;
@@ -7,6 +9,12 @@ class User {
     const user = await this._userRepository.getUserById(id);
 
     return user;
+  }
+
+  async getAllRegistrar() {
+    const registrars = await this._userRepository.getAllByRole(Role.Registrar);
+
+    return registrars;
   }
 }
 

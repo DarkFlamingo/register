@@ -18,6 +18,12 @@ class User extends Abstract {
     });
   }
 
+  getAllByRole(role) {
+    return this.model.findAll({
+      where: { role }
+    });
+  }
+
   getByUsername(username) {
     return this.model.findOne({
       group: ['users.id'],
@@ -28,7 +34,6 @@ class User extends Abstract {
 
   getUserById(id) {
     return this.model.findOne({
-      group: ['users.id'],
       attributes: ['id', 'login', 'password', 'role', 'isActive'],
       where: { id }
     });
