@@ -1,6 +1,7 @@
 import { Auth } from './auth/auth.service';
 import { Http } from './http/http.service';
 import { Storage } from './storage/storage.service';
+import { Blank } from './blank/blank.service';
 
 const storage = new Storage({
   storage: localStorage
@@ -14,4 +15,8 @@ const auth = new Auth({
   http
 });
 
-export { http, storage, auth };
+const blank = new Blank({
+  http
+});
+
+export { http, storage, auth, blank };

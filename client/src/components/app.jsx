@@ -7,11 +7,11 @@ import { profileActionCreator } from 'src/store/actions';
 import {
   Spinner,
   PublicRoute,
-  PrivateRoute,
-  Button
+  PrivateRoute
 } from 'src/components/common/common';
 import SignPage from 'src/components/sign/sign';
 import NotFoundPage from 'src/components/not-found/not-found';
+import Main from 'src/components/main/main';
 
 const Routing = () => {
   const { user } = useSelector(state => ({
@@ -48,7 +48,7 @@ const Routing = () => {
           <PrivateRoute
             exact
             path={AppRoute.ROOT}
-            component={() => <Button onClick={handleLogOut}>fdsfad</Button>}
+            component={() => <Main handleLogOut={handleLogOut} />}
           />
           <Route path={AppRoute.ANY} exact component={NotFoundPage} />
         </Switch>

@@ -12,9 +12,14 @@ class Blank {
       number
     });
     if (blank) {
-      return blank;
+      return {
+        isExist: true,
+        blank: blank
+      };
     } else {
-      return null;
+      return {
+        isExist: false
+      };
     }
   }
 
