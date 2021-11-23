@@ -2,6 +2,7 @@ import { Auth } from './auth/auth.service';
 import { Http } from './http/http.service';
 import { Storage } from './storage/storage.service';
 import { Blank } from './blank/blank.service';
+import { Registrar } from './registrar/registrar.service';
 
 const storage = new Storage({
   storage: localStorage
@@ -19,4 +20,8 @@ const blank = new Blank({
   http
 });
 
-export { http, storage, auth, blank };
+const registrar = new Registrar({
+  http
+});
+
+export { http, storage, auth, blank, registrar };

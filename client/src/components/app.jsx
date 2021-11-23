@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useAction } from 'src/hooks/useAction';
 import { StorageKey, AppRoute } from 'src/common/enums/enums';
 import { storage } from 'src/services/services';
-import { profileActionCreator } from 'src/store/actions';
 import {
   Spinner,
   PublicRoute,
@@ -15,25 +15,27 @@ import Main from 'src/components/main/main';
 
 const Routing = () => {
   const { user } = useSelector(state => ({
-    user: state.profile.user
+    user: state.profile.user,
+    registrars: state.registrar.registrars
   }));
-  const dispatch = useDispatch();
+  const { loadCurrentUser, loadRegistrars, logout } = useAction();
 
   const hasToken = Boolean(storage.getItem(StorageKey.TOKEN));
   const hasUser = Boolean(user);
 
   React.useEffect(() => {
     if (hasToken) {
-      dispatch(profileActionCreator.loadCurrentUser());
+      loadCurrentUser();
+      loadRegistrars();
     }
-  }, [hasToken, dispatch]);
+  }, [hasToken]);
 
   if (!hasUser && hasToken) {
     return <Spinner isOverflow />;
   }
 
   const handleLogOut = () => {
-    dispatch(profileActionCreator.logout());
+    logout();
   };
 
   return (
@@ -48,7 +50,9 @@ const Routing = () => {
           <PrivateRoute
             exact
             path={AppRoute.ROOT}
-            component={() => <Main handleLogOut={handleLogOut} />}
+            component={() => (
+              <Main handleLogOut={handleLogOut} />
+            )}
           />
           <Route path={AppRoute.ANY} exact component={NotFoundPage} />
         </Switch>

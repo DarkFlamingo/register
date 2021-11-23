@@ -21,6 +21,7 @@ import PublicRoute from './public-route/public-route';
 import Spinner from './spinner/spinner';
 import CheckBlankModal from './check-blank-modal/check-blank-modal';
 import BlankItem from './blank-item/blank-item';
+import ManageRegistrarsModal from './manage-registrars/manage-registrars';
 
 export {
   Header,
@@ -43,5 +44,6 @@ export {
   NavLink,
   CheckBlankModal,
   List,
-  BlankItem
+  BlankItem,
+  ManageRegistrarsModal
 };

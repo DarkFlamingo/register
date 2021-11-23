@@ -1,11 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { profileReducer, blankReducer } from './root-reducer';
+import {
+  profileReducer,
+  blankReducer,
+  registrarReducer
+} from './root-reducer';
 
 const store = configureStore({
   reducer: {
     profile: profileReducer,
-    blank: blankReducer
+    blank: blankReducer,
+    registrar: registrarReducer
   }
 });
 
