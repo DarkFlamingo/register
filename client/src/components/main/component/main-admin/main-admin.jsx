@@ -10,16 +10,19 @@ import {
   BlankItem,
   Image,
   ManageRegistrarsModal,
-  ManageUsersModal
+  ManageUsersModal,
+  AddBlankModal
 } from 'src/components/common/common';
 import moment from 'moment';
 import { ADMIN_AVA_URL } from 'src/common/constants/constants';
+import { blank as blankService } from 'src/services/services';
 import styles from './styles.module.scss';
 
 const MainAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isManageRegistrars, setIsManageRegistrars] = useState(false);
   const [isManageUsers, setIsManageUsers] = useState(false);
+  const [isAddBlank, setIsAddBlank] = useState(false);
 
   const { blank } = useSelector(state => ({
     blank: state.blank.validBlank
@@ -35,11 +38,22 @@ const MainAdmin = () => {
     checkBlank({ series, number });
   };
 
+  const handleAddBlank = async data => {
+    blankService.addBlank(data);
+  };
+
   return (
     <Grid.Column className={styles['main-user-wrapper']}>
       <Grid.Row className={styles['main-user-ava-wrapper']}>
         <Grid.Column className={styles['main-button-wrapper']}>
-          <Button>Керування Реєстраторами</Button>
+          <Modal
+            onClose={() => setIsAddBlank(false)}
+            onOpen={() => setIsAddBlank(true)}
+            open={isAddBlank}
+            trigger={<Button>Додати бланк</Button>}
+          >
+            <AddBlankModal setOpen={setIsAddBlank} addBlank={handleAddBlank} />
+          </Modal>
         </Grid.Column>
         <Grid.Column>
           <Image
@@ -60,20 +74,22 @@ const MainAdmin = () => {
         </Grid.Column>
       </Grid.Row>
       <Grid.Row className={styles['main-user-check-blank']}>
+        <div className={styles['admin-panel']}>
+          <Button onClick={() => setIsManageUsers(true)}>
+            Зареєструвати реєстратора
+          </Button>
+          <Modal
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
+            open={isModalOpen}
+            trigger={<Button>Перевірка бланка</Button>}
+          >
+            <CheckBlankModal setOpen={setOpen} checkBlank={handleCheckBlank} />
+          </Modal>
+        </div>
         {isManageUsers && (
           <ManageUsersModal onClose={() => setIsManageUsers(false)} />
         )}
-        <Button onClick={() => setIsManageUsers(true)}>
-          Зареєструвати реєстратора
-        </Button>
-        <Modal
-          onClose={() => setOpen(false)}
-          onOpen={() => setOpen(true)}
-          open={isModalOpen}
-          trigger={<Button>Перевірка бланка</Button>}
-        >
-          <CheckBlankModal setOpen={setOpen} checkBlank={handleCheckBlank} />
-        </Modal>
         <div className={styles['blank-wrapper']}>
           {blank && <BlankItem blank={blank} />}
           {blank === null && (

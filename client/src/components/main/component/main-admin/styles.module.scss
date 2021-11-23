@@ -33,8 +33,18 @@
 .main-button-wrapper {
   display: flex;
   align-items: center;
+  width: 250px;
   margin: 0 40px;
   button {
     height: 50px;
+  }
+}
+
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  button {
+    margin: 10px !important;
   }
 }
