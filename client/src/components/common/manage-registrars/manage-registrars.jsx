@@ -17,7 +17,7 @@ const ManageRegistrarsModal = ({ onClose }) => {
       <div className={styles['modal-content']}>
         <List className={styles.list} divided relaxed>
           {registrars.map(el => (
-            <div className={styles.item}>
+            <div key={el.id} className={styles.item}>
               <List.Content>
                 <List.Header as="a">{el.login}</List.Header>
               </List.Content>
