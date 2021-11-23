@@ -16,9 +16,9 @@ import Main from 'src/components/main/main';
 const Routing = () => {
   const { user } = useSelector(state => ({
     user: state.profile.user,
-    registrars: state.registrar.registrars
+    registrars: state.people.registrars
   }));
-  const { loadCurrentUser, loadRegistrars, logout } = useAction();
+  const { loadCurrentUser, loadRegistrars, logout, loadUsers } = useAction();
 
   const hasToken = Boolean(storage.getItem(StorageKey.TOKEN));
   const hasUser = Boolean(user);
@@ -27,6 +27,7 @@ const Routing = () => {
     if (hasToken) {
       loadCurrentUser();
       loadRegistrars();
+      loadUsers();
     }
   }, [hasToken]);
 
@@ -50,9 +51,7 @@ const Routing = () => {
           <PrivateRoute
             exact
             path={AppRoute.ROOT}
-            component={() => (
-              <Main handleLogOut={handleLogOut} />
-            )}
+            component={() => <Main handleLogOut={handleLogOut} />}
           />
           <Route path={AppRoute.ANY} exact component={NotFoundPage} />
         </Switch>

@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 
 const init = orm => {
-  const Organisation = orm.define(
-    'organisations',
+  const Organization = orm.define(
+    'organizations',
     {
       organizationName: {
         allowNull: false,
@@ -16,7 +16,7 @@ const init = orm => {
     { timestamps: false, createdAt: false, updatedAt: false }
   );
 
-  return Organisation;
+  return Organization;
 };
 
 export { init };

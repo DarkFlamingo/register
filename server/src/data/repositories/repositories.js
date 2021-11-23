@@ -6,7 +6,7 @@ import {
   ExtractModel,
   LogModel,
   OldValueModel,
-  OrganisationModel,
+  OrganizationModel,
   PassportModel,
   PositionModel
 } from '../models';
@@ -16,7 +16,7 @@ import { Code } from './code/code.repository';
 import { Extract } from './extract/extract.repository';
 import { Log } from './log/log.repository';
 import { OldValue } from './old_value/old_value.repository';
-import { Organisation } from './organisation/organisation.repository';
+import { Organization } from './organization/organization.repository';
 import { Passport } from './passport/passport.repository';
 import { Position } from './position/position.repository';
 import { User } from './user/user.repository';
@@ -42,4 +42,12 @@ const code = new Code({
   codeModel: CodeModel
 });
 
-export { user, authorities, passport, blank, code };
+const organization = new Organization({
+  organizationModel: OrganizationModel
+});
+
+const position = new Position({
+  positionModel: PositionModel
+});
+
+export { user, authorities, passport, blank, code, organization, position };

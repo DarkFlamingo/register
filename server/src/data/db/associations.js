@@ -8,7 +8,7 @@ export default models => {
     Extract,
     Log,
     OldValue,
-    Organisation,
+    Organization,
     Passport,
     Position
   } = models;
@@ -26,15 +26,15 @@ export default models => {
   Passport.hasOne(User);
 
   User.belongsTo(Passport);
-  User.hasOne(Organisation);
-  User.hasOne(Position);
+  User.belongsTo(Organization);
+  User.belongsTo(Position);
   User.hasMany(Log);
   User.hasMany(Blank);
   User.hasMany(Extract);
 
-  Organisation.belongsTo(User);
+  Organization.hasOne(User);
 
-  Position.belongsTo(User);
+  Position.hasOne(User);
 
   OldValue.belongsTo(Log);
 

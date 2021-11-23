@@ -15,6 +15,16 @@ const initUser = (Router, services) => {
         .catch(next)
   );
 
+  router.get(
+    UserApiPath.GET_ALL_USER,
+    checkRoles([Role.Admin]),
+    (req, res, next) =>
+      userService
+        .getAllUsers()
+        .then(users => res.send(users))
+        .catch(next)
+  );
+
   router.patch(
     UserApiPath.REGISTRARS_BLOCK,
     checkRoles([Role.Admin]),
@@ -31,6 +41,16 @@ const initUser = (Router, services) => {
     (req, res, next) =>
       userService
         .changeActiveStatus({ registrarId: req.query.id, isActive: true })
+        .then(registrar => res.send(registrar))
+        .catch(next)
+  );
+
+  router.put(
+    UserApiPath.MAKE_REGISTRAR,
+    checkRoles([Role.Admin]),
+    (req, res, next) =>
+      userService
+        .makeRegistrar({ id: req.params.id, data: req.body })
         .then(registrar => res.send(registrar))
         .catch(next)
   );

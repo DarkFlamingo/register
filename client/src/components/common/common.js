@@ -22,6 +22,7 @@ import Spinner from './spinner/spinner';
 import CheckBlankModal from './check-blank-modal/check-blank-modal';
 import BlankItem from './blank-item/blank-item';
 import ManageRegistrarsModal from './manage-registrars/manage-registrars';
+import ManageUsersModal from './manage-users/manage-users';
 
 export {
   Header,
@@ -45,5 +46,6 @@ export {
   CheckBlankModal,
   List,
   BlankItem,
-  ManageRegistrarsModal
+  ManageRegistrarsModal,
+  ManageUsersModal
 };

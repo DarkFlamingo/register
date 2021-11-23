@@ -1,8 +1,14 @@
-import { HttpMethod } from 'src/common/enums/enums';
+import { HttpMethod, ContentType } from 'src/common/enums/enums';
 
 class Registrar {
   constructor({ http }) {
     this._http = http;
+  }
+
+  loadUsers() {
+    return this._http.load('/api/users/users', {
+      method: HttpMethod.GET
+    });
   }
 
   loadRegistrars() {
@@ -26,6 +32,14 @@ class Registrar {
       query: {
         id
       }
+    });
+  }
+
+  makeRegistrar(id, data) {
+    return this._http.load(`/api/users/make-registrar/${id}`, {
+      method: HttpMethod.PUT,
+      contentType: ContentType.JSON,
+      payload: JSON.stringify(data)
     });
   }
 }

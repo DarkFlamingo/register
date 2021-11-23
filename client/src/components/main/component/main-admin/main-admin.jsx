@@ -1,4 +1,4 @@
-/* eslint-disable */
+import * as React from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAction } from 'src/hooks/useAction';
@@ -9,7 +9,8 @@ import {
   Button,
   BlankItem,
   Image,
-  ManageRegistrarsModal
+  ManageRegistrarsModal,
+  ManageUsersModal
 } from 'src/components/common/common';
 import moment from 'moment';
 import { ADMIN_AVA_URL } from 'src/common/constants/constants';
@@ -18,6 +19,7 @@ import styles from './styles.module.scss';
 const MainAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isManageRegistrars, setIsManageRegistrars] = useState(false);
+  const [isManageUsers, setIsManageUsers] = useState(false);
 
   const { blank } = useSelector(state => ({
     blank: state.blank.validBlank
@@ -37,9 +39,7 @@ const MainAdmin = () => {
     <Grid.Column className={styles['main-user-wrapper']}>
       <Grid.Row className={styles['main-user-ava-wrapper']}>
         <Grid.Column className={styles['main-button-wrapper']}>
-          <Button>
-            Керування Реєстраторами
-          </Button>
+          <Button>Керування Реєстраторами</Button>
         </Grid.Column>
         <Grid.Column>
           <Image
@@ -60,6 +60,12 @@ const MainAdmin = () => {
         </Grid.Column>
       </Grid.Row>
       <Grid.Row className={styles['main-user-check-blank']}>
+        {isManageUsers && (
+          <ManageUsersModal onClose={() => setIsManageUsers(false)} />
+        )}
+        <Button onClick={() => setIsManageUsers(true)}>
+          Зареєструвати реєстратора
+        </Button>
         <Modal
           onClose={() => setOpen(false)}
           onOpen={() => setOpen(true)}

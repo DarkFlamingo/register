@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 
 const ManageRegistrarsModal = ({ onClose }) => {
   const { registrars } = useSelector(state => ({
-    registrars: state.registrar.registrars
+    registrars: state.people.registrars
   }));
 
   const { blockRegistrar, unblockRegistrar } = useAction();
@@ -17,11 +17,9 @@ const ManageRegistrarsModal = ({ onClose }) => {
       <div className={styles['modal-content']}>
         <List className={styles.list} divided relaxed>
           {registrars.map(el => (
-            <List.Item key={el.id} className={styles.item}>
-              <List.Icon name="github" size="large" verticalAlign="middle" />
+            <div className={styles.item}>
               <List.Content>
-                <List.Header as="a">{el.name}</List.Header>
-                <List.Description as="a">Updated 10 mins ago</List.Description>
+                <List.Header as="a">{el.login}</List.Header>
               </List.Content>
               {el.isActive ? (
                 <Button
@@ -38,7 +36,7 @@ const ManageRegistrarsModal = ({ onClose }) => {
                   Розблокувати
                 </Button>
               )}
-            </List.Item>
+            </div>
           ))}
         </List>
         <Button onClick={onClose}>Вихід</Button>

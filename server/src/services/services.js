@@ -3,7 +3,9 @@ import {
   authorities as authoritiesRepository,
   passport as passportRepository,
   blank as blankRepository,
-  code as codeRepository
+  code as codeRepository,
+  organization as organizationRepository,
+  position as positionRepository
 } from '../data/repositories/repositories';
 import { Auth } from './auth/auth.service';
 import { Blank } from './blank/blank.service';
@@ -19,7 +21,9 @@ const auth = new Auth({
 });
 
 const user = new User({
-  userRepository
+  userRepository,
+  organizationRepository,
+  positionRepository
 });
 
 const blank = new Blank({

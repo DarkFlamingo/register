@@ -6,7 +6,6 @@ class User extends Abstract {
   }
 
   addUser(user) {
-    console.log(user);
     return this.create(user);
   }
 

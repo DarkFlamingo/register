@@ -5,12 +5,22 @@ const ActionType = {
   SET_REGISTRARS: 'registrars/set-registrars',
   LOAD_REGISTRARS: 'registrars/load',
   BLOCKED_REGISTRARS: 'registrars/block',
-  UNBLOCKED_REGISTRARS: 'registrars/unblock'
+  UNBLOCKED_REGISTRARS: 'registrars/unblock',
+  MAKE_REGISTRAR: 'registrars/make-registrar',
+  LOAD_USERS: 'users/load-users',
+  DELETE_USER: 'users/delete-user',
+  ADD_REGISTRAR: 'registrars/add-registrar'
 };
 
 const setRegistrars = createAction(ActionType.SET_REGISTRARS, registrars => ({
   payload: {
     registrars
+  }
+}));
+
+const deleteUser = createAction(ActionType.DELETE_USER, id => ({
+  payload: {
+    id
   }
 }));
 
@@ -50,4 +60,41 @@ const unblockRegistrar = createAsyncThunk(
   }
 );
 
-export { setRegistrars, loadRegistrars, blockRegistrar, unblockRegistrar };
+const addRegistrar = createAction(ActionType.ADD_REGISTRAR, registrar => ({
+  payload: {
+    registrar
+  }
+}));
+
+const makeRegistrar = ({ id, data }) => async dispatch => {
+  const user = await registrarService.makeRegistrar(id, data);
+  if (user) {
+    dispatch(deleteUser(user.id));
+    dispatch(addRegistrar(user));
+  }
+  return {
+    data: {
+      user
+    }
+  };
+};
+
+const loadUsers = createAsyncThunk(ActionType.LOAD_USERS, async () => {
+  const users = await registrarService.loadUsers();
+  return {
+    data: {
+      users
+    }
+  };
+});
+
+export {
+  setRegistrars,
+  loadRegistrars,
+  blockRegistrar,
+  unblockRegistrar,
+  makeRegistrar,
+  loadUsers,
+  deleteUser,
+  addRegistrar
+};

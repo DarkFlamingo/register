@@ -7,7 +7,7 @@ import { init as initCodeModel } from './code/code.model';
 import { init as initExtractModel } from './extract/extract.model';
 import { init as initLogModel } from './log/log.model';
 import { init as initOldValueModel } from './old_value/old_value.model';
-import { init as initOrganisationModel } from './organisation/organisation.model';
+import { init as initOrganizationModel } from './organization/organization.model';
 import { init as initPassportModel } from './passport/passport.model';
 import { init as initPositionModel } from './position/position.model';
 
@@ -18,7 +18,7 @@ const Code = initCodeModel(orm);
 const Extract = initExtractModel(orm);
 const Log = initLogModel(orm);
 const OldValue = initOldValueModel(orm);
-const Organisation = initOrganisationModel(orm);
+const Organization = initOrganizationModel(orm);
 const Passport = initPassportModel(orm);
 const Position = initPositionModel(orm);
 
@@ -30,7 +30,7 @@ associate({
   Extract,
   Log,
   OldValue,
-  Organisation,
+  Organization,
   Passport,
   Position
 });
@@ -43,7 +43,7 @@ export {
   Extract as ExtractModel,
   Log as LogModel,
   OldValue as OldValueModel,
-  Organisation as OrganisationModel,
+  Organization as OrganizationModel,
   Passport as PassportModel,
   Position as PositionModel
 };

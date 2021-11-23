@@ -10,7 +10,7 @@ const store = configureStore({
   reducer: {
     profile: profileReducer,
     blank: blankReducer,
-    registrar: registrarReducer
+    people: registrarReducer
   }
 });
 
