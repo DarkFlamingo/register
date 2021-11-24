@@ -20,7 +20,7 @@ class Extract {
     });
 
     if (blank) {
-      const extract = this._extractRepository.create({
+      const extract = await this._extractRepository.create({
         issueDate: Date.now(),
         userId: user.id,
         params: JSON.stringify(params),
@@ -29,9 +29,13 @@ class Extract {
         isPaid: true
       });
 
-      return extract;
+      const readyExtract = await this._extractRepository.getExtractForView(
+        extract.id
+      );
+
+      return readyExtract;
     } else {
-      const extract = this._extractRepository.create({
+      const extract = await this._extractRepository.create({
         issueDate: Date.now(),
         userId: user.id,
         params: JSON.stringify(params),
@@ -40,7 +44,11 @@ class Extract {
         isPaid: true
       });
 
-      return extract;
+      const readyExtract = await this._extractRepository.getExtractForView(
+        extract.id
+      );
+
+      return readyExtract;
     }
   }
 }

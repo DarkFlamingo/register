@@ -12,13 +12,12 @@ import {
   ManageRegistrarsModal,
   ManageUsersModal,
   AddBlankModal,
-  GetExtractModal
+  GetExtractModal,
+  Extract
 } from 'src/components/common/common';
 import moment from 'moment';
 import { ADMIN_AVA_URL } from 'src/common/constants/constants';
-import {
-  blank as blankService
-} from 'src/services/services';
+import { blank as blankService } from 'src/services/services';
 import styles from './styles.module.scss';
 
 const MainAdmin = () => {
@@ -28,15 +27,16 @@ const MainAdmin = () => {
   const [isAddBlank, setIsAddBlank] = useState(false);
   const [isGetExtract, setIsGetExtract] = useState(false);
 
-  const { blank } = useSelector(state => ({
-    blank: state.blank.validBlank
+  const { blank, extract } = useSelector(state => ({
+    blank: state.blank.validBlank,
+    extract: state.extract.extract
   }));
 
   const setOpen = isOpen => {
     setIsModalOpen(isOpen);
   };
 
-  const { checkBlank } = useAction();
+  const { checkBlank, setExtract } = useAction();
 
   const handleCheckBlank = async ({ series, number }) => {
     checkBlank({ series, number });
@@ -85,10 +85,11 @@ const MainAdmin = () => {
             open={isGetExtract}
             trigger={<Button>Отримати витяг</Button>}
           >
-            <GetExtractModal
-              setOpen={setIsGetExtract}
-            />
+            <GetExtractModal setOpen={setIsGetExtract} />
           </Modal>
+          {extract && (
+            <Extract extract={extract} onClose={() => setExtract(null)} />
+          )}
           <Button onClick={() => setIsManageUsers(true)}>
             Зареєструвати реєстратора
           </Button>

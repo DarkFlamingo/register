@@ -51,7 +51,11 @@ const position = new Position({
 });
 
 const extract = new Extract({
-  extractModel: ExtractModel
+  extractModel: ExtractModel,
+  blankModel: BlankModel,
+  codeModel: CodeModel,
+  passportModel: PassportModel,
+  userModel: UserModel
 });
 
 export {

@@ -3,14 +3,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import {
   profileReducer,
   blankReducer,
-  registrarReducer
+  registrarReducer,
+  extractReducer
 } from './root-reducer';
 
 const store = configureStore({
   reducer: {
     profile: profileReducer,
     blank: blankReducer,
-    people: registrarReducer
+    people: registrarReducer,
+    extract: extractReducer
   }
 });
 

@@ -25,6 +25,7 @@ import ManageRegistrarsModal from './manage-registrars/manage-registrars';
 import ManageUsersModal from './manage-users/manage-users';
 import AddBlankModal from './add-blank-modal/add-blank-modal';
 import GetExtractModal from './get-extract-modal/get-extract-modal';
+import Extract from './extract/extract';
 
 export {
   Header,
@@ -51,5 +52,6 @@ export {
   ManageRegistrarsModal,
   ManageUsersModal,
   AddBlankModal,
-  GetExtractModal
+  GetExtractModal,
+  Extract
 };

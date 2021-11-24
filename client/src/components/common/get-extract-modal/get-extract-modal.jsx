@@ -1,12 +1,16 @@
 /* eslint-disable */
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { useAction } from 'src/hooks/useAction';
 import { Modal, Button, Form } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
 import { extract as extractService } from 'src/services/services';
 import styles from './styles.module.scss';
 
 const CheckBlankModal = ({ setOpen }) => {
+  const { setExtract } = useAction();
+
   const [series, setSeries] = React.useState('');
   const [isSeriesValid, setSeriesValid] = React.useState(true);
 
@@ -41,7 +45,7 @@ const CheckBlankModal = ({ setOpen }) => {
   };
 
   const handleAddBlank = async () => {
-    let data;
+    let data = null;
     if (series) {
       if (number) {
         if (code) {
@@ -67,7 +71,7 @@ const CheckBlankModal = ({ setOpen }) => {
         data = await extractService.getExtract({ code });
       }
     }
-    console.log(data);
+    setExtract(data);
   };
 
   return (
