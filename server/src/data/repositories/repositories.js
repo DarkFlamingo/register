@@ -50,4 +50,17 @@ const position = new Position({
   positionModel: PositionModel
 });
 
-export { user, authorities, passport, blank, code, organization, position };
+const extract = new Extract({
+  extractModel: ExtractModel
+});
+
+export {
+  user,
+  authorities,
+  passport,
+  blank,
+  code,
+  organization,
+  position,
+  extract
+};

@@ -11,11 +11,14 @@ import {
   Image,
   ManageRegistrarsModal,
   ManageUsersModal,
-  AddBlankModal
+  AddBlankModal,
+  GetExtractModal
 } from 'src/components/common/common';
 import moment from 'moment';
 import { ADMIN_AVA_URL } from 'src/common/constants/constants';
-import { blank as blankService } from 'src/services/services';
+import {
+  blank as blankService
+} from 'src/services/services';
 import styles from './styles.module.scss';
 
 const MainAdmin = () => {
@@ -23,6 +26,7 @@ const MainAdmin = () => {
   const [isManageRegistrars, setIsManageRegistrars] = useState(false);
   const [isManageUsers, setIsManageUsers] = useState(false);
   const [isAddBlank, setIsAddBlank] = useState(false);
+  const [isGetExtract, setIsGetExtract] = useState(false);
 
   const { blank } = useSelector(state => ({
     blank: state.blank.validBlank
@@ -75,6 +79,16 @@ const MainAdmin = () => {
       </Grid.Row>
       <Grid.Row className={styles['main-user-check-blank']}>
         <div className={styles['admin-panel']}>
+          <Modal
+            onClose={() => setIsGetExtract(false)}
+            onOpen={() => setIsGetExtract(true)}
+            open={isGetExtract}
+            trigger={<Button>Отримати витяг</Button>}
+          >
+            <GetExtractModal
+              setOpen={setIsGetExtract}
+            />
+          </Modal>
           <Button onClick={() => setIsManageUsers(true)}>
             Зареєструвати реєстратора
           </Button>
