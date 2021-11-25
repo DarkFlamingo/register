@@ -3,9 +3,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useAction } from 'src/hooks/useAction';
-import { Modal, Button, Form } from 'src/components/common/common';
+import { Modal, Button, Form, Select } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
 import { extract as extractService } from 'src/services/services';
+import { ISSUE_CODE } from 'src/common/constants/constants';
 import styles from './styles.module.scss';
 
 const CheckBlankModal = ({ setOpen }) => {
@@ -17,7 +18,7 @@ const CheckBlankModal = ({ setOpen }) => {
   const [number, setNumber] = React.useState('');
   const [isNumberValid, setNumberValid] = React.useState(true);
 
-  const [code, setCode] = React.useState(1);
+  const [option, setOption] = React.useState(null);
 
   const checkNumber = value => {
     const regExp = new RegExp('^[0-9]+$');
@@ -48,30 +49,41 @@ const CheckBlankModal = ({ setOpen }) => {
     let data = null;
     if (series) {
       if (number) {
-        if (code) {
-          data = await extractService.getExtract({ series, number, code });
+        if (option) {
+          data = await extractService.getExtract({
+            series,
+            number,
+            code: option.code
+          });
         } else {
           data = await extractService.getExtract({ series, number });
         }
       }
 
-      if (code) {
-        data = await extractService.getExtract({ series, code });
+      if (option) {
+        data = await extractService.getExtract({ series, code: option.code });
       } else {
         data = await extractService.getExtract({ series });
       }
     } else {
       if (number) {
-        if (code) {
-          data = await extractService.getExtract({ code, number });
+        if (option) {
+          data = await extractService.getExtract({ code: option.code, number });
         } else {
           data = await extractService.getExtract({ number });
         }
-      } else if (code) {
-        data = await extractService.getExtract({ code });
+      } else if (option.code) {
+        data = await extractService.getExtract({ code: option.code });
       }
     }
     setExtract(data);
+  };
+
+  const getOptions = () => {
+    return Object.entries(ISSUE_CODE).map(([key, value]) => ({
+      value: { code: key, name: value },
+      label: `${key}) ${value}`
+    }));
   };
 
   return (
@@ -101,14 +113,9 @@ const CheckBlankModal = ({ setOpen }) => {
                 onBlur={() => setNumberValid(checkNumber(number))}
                 value={number}
               />
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                type="number"
-                iconPosition="left"
-                placeholder="Код витрачання"
-                onChange={ev => setCode(ev.target.value)}
-                value={code}
+              <Select
+                options={getOptions()}
+                onChange={obj => setOption(obj.value)}
               />
             </div>
           </Form>
@@ -126,7 +133,7 @@ const CheckBlankModal = ({ setOpen }) => {
           onClick={handleAddBlank}
           positive
           isDisabled={
-            !((number && isNumberValid) || (series && isSeriesValid) || code)
+            !((number && isNumberValid) || (series && isSeriesValid) || option)
           }
         >
           Отримати
