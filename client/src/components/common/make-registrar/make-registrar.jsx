@@ -21,7 +21,7 @@ const MakeRegistrar = ({ setOpen, id }) => {
 
   return (
     <>
-      <Modal.Header>Перевірка бланка</Modal.Header>
+      <Modal.Header>Зареєструвати реєстратора</Modal.Header>
       <Modal.Content image>
         <Modal.Description>
           <Form name="checkBlankForm" size="large">

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -41,7 +42,11 @@ const LogsModal = ({ onClose }) => {
                     {el.blank.code && (
                       <>
                         <div className={styles.log}>{el.blank.code.code}</div>
-                        <div className={styles.log}>{el.blank.code.name}</div>
+                        <div className={styles.log}>
+                          {el.blank.code.name.length > 30
+                            ? `${el.blank.code.name.slice(0, 30)}...`
+                            : el.blank.code.name}
+                        </div>
                       </>
                     )}
                     {!el.blank.code && (

@@ -11,7 +11,8 @@ import {
   Image,
   AddBlankModal,
   GetExtractModal,
-  Extract
+  Extract,
+  ManageBlanks
 } from 'src/components/common/common';
 import moment from 'moment';
 import { REGISTAR_AVA_URL } from 'src/common/constants/constants';
@@ -22,6 +23,7 @@ const MainRegistrar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddBlank, setIsAddBlank] = useState(false);
   const [isGetExtract, setIsGetExtract] = useState(false);
+  const [isManageBlanksModal, setIsManageBlanksModal] = React.useState(false);
 
   const { blank, extract } = useSelector(state => ({
     blank: state.blank.validBlank,
@@ -61,6 +63,14 @@ const MainRegistrar = () => {
             size="small"
             src={REGISTAR_AVA_URL}
           />
+        </Grid.Column>
+        <Grid.Column className={styles['main-button-wrapper']}>
+          <Button onClick={() => setIsManageBlanksModal(true)}>
+            Змінити бланк
+          </Button>
+          {isManageBlanksModal && (
+            <ManageBlanks onClose={() => setIsManageBlanksModal(false)} />
+          )}
         </Grid.Column>
       </Grid.Row>
       <Grid.Row className={styles['main-user-check-blank']}>
