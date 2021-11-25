@@ -3,6 +3,7 @@ const ApiPath = {
   BLANK: '/blanks',
   USER: '/users',
   EXTRACT: '/extracts',
+  LOG: '/logs'
 };
 
 export { ApiPath };

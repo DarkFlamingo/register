@@ -2,7 +2,6 @@
   max-width: 800px;
 }
 
-
 .blank-wrapper {
   margin: 10px !important;
   display: flex;
@@ -32,11 +31,13 @@
 
 .main-button-wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
   margin: 0 40px;
   button {
     height: 50px;
     width: 150px;
+    margin-bottom: 15px !important;
   }
 }
 

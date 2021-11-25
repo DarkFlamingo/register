@@ -1,5 +1,5 @@
 const LogApiPath = {
-  ROOT: '/all',
+  ALL: '/all',
 };
 
 export { LogApiPath };

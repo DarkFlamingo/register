@@ -58,6 +58,14 @@ const extract = new Extract({
   userModel: UserModel
 });
 
+const log = new Log({
+  logModel: LogModel,
+  blankModel: BlankModel,
+  userModel: UserModel,
+  passportModel: PassportModel,
+  codeModel: CodeModel
+});
+
 export {
   user,
   authorities,
@@ -66,5 +74,6 @@ export {
   code,
   organization,
   position,
-  extract
+  extract,
+  log
 };

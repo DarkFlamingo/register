@@ -26,6 +26,7 @@ import ManageUsersModal from './manage-users/manage-users';
 import AddBlankModal from './add-blank-modal/add-blank-modal';
 import GetExtractModal from './get-extract-modal/get-extract-modal';
 import Extract from './extract/extract';
+import LogsModal from './logs-modal/logs-modal';
 
 export {
   Header,
@@ -53,5 +54,6 @@ export {
   ManageUsersModal,
   AddBlankModal,
   GetExtractModal,
-  Extract
+  Extract,
+  LogsModal
 };

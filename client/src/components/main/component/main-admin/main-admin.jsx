@@ -13,7 +13,8 @@ import {
   ManageUsersModal,
   AddBlankModal,
   GetExtractModal,
-  Extract
+  Extract,
+  LogsModal
 } from 'src/components/common/common';
 import moment from 'moment';
 import { ADMIN_AVA_URL } from 'src/common/constants/constants';
@@ -26,6 +27,7 @@ const MainAdmin = () => {
   const [isManageUsers, setIsManageUsers] = useState(false);
   const [isAddBlank, setIsAddBlank] = useState(false);
   const [isGetExtract, setIsGetExtract] = useState(false);
+  const [isLogsModal, setIsLogsModal] = useState(false);
 
   const { blank, extract } = useSelector(state => ({
     blank: state.blank.validBlank,
@@ -58,6 +60,8 @@ const MainAdmin = () => {
           >
             <AddBlankModal setOpen={setIsAddBlank} addBlank={handleAddBlank} />
           </Modal>
+          <Button onClick={() => setIsLogsModal(true)}>Перегляд історії</Button>
+          {isLogsModal && <LogsModal onClose={() => setIsLogsModal(false)} />}
         </Grid.Column>
         <Grid.Column>
           <Image

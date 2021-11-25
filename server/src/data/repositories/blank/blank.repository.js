@@ -40,9 +40,6 @@ class Blank extends Abstract {
     let where = this.getWhereCondition({ series, number });
     let secondWhere = this.getWhereConditionSecond({ code, name });
 
-    console.log(where);
-    console.log(secondWhere);
-
     if (where) {
       if (secondWhere) {
         return this.model.findOne({

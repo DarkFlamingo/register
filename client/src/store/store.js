@@ -4,7 +4,8 @@ import {
   profileReducer,
   blankReducer,
   registrarReducer,
-  extractReducer
+  extractReducer,
+  logReducer
 } from './root-reducer';
 
 const store = configureStore({
@@ -12,7 +13,8 @@ const store = configureStore({
     profile: profileReducer,
     blank: blankReducer,
     people: registrarReducer,
-    extract: extractReducer
+    extract: extractReducer,
+    log: logReducer
   }
 });
 

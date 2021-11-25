@@ -6,13 +6,15 @@ import {
   code as codeRepository,
   organization as organizationRepository,
   position as positionRepository,
-  extract as extractRepository
+  extract as extractRepository,
+  log as logRepository
 } from '../data/repositories/repositories';
 import { Auth } from './auth/auth.service';
 import { Blank } from './blank/blank.service';
 import { Http } from './http/http.service';
 import { User } from './user/user.service';
 import { Extract } from './extract/extract.service';
+import { Log } from './log/log.service';
 
 const http = new Http();
 
@@ -30,7 +32,8 @@ const user = new User({
 
 const blank = new Blank({
   blankRepository,
-  codeRepository
+  codeRepository,
+  logRepository
 });
 
 const extract = new Extract({
@@ -39,4 +42,8 @@ const extract = new Extract({
   userRepository
 });
 
-export { auth, user, blank, extract };
+const log = new Log({
+  logRepository
+});
+
+export { auth, user, blank, extract, log };

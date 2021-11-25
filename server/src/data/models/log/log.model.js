@@ -10,7 +10,7 @@ const init = orm => {
       },
       date: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.DATE
       }
     },
     { timestamps: false, createdAt: false, updatedAt: false }

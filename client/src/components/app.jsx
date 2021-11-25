@@ -16,9 +16,10 @@ import Main from 'src/components/main/main';
 const Routing = () => {
   const { user } = useSelector(state => ({
     user: state.profile.user,
-    registrars: state.people.registrars
+    registrars: state.people.registrars,
+    logs: state.log.logs
   }));
-  const { loadCurrentUser, loadRegistrars, logout, loadUsers } = useAction();
+  const { loadCurrentUser, loadRegistrars, logout, loadUsers, loadLogs } = useAction();
 
   const hasToken = Boolean(storage.getItem(StorageKey.TOKEN));
   const hasUser = Boolean(user);
@@ -28,6 +29,7 @@ const Routing = () => {
       loadCurrentUser();
       loadRegistrars();
       loadUsers();
+      loadLogs();
     }
   }, [hasToken]);
 

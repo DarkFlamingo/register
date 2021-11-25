@@ -1,9 +1,10 @@
 import { ServerError } from '../../helpers/helpers';
 
 class Blank {
-  constructor({ blankRepository, codeRepository }) {
+  constructor({ blankRepository, codeRepository, logRepository }) {
     this._blankRepository = blankRepository;
     this._codeRepository = codeRepository;
+    this._logRepository = logRepository;
   }
 
   async checkBlank({ series, number }) {
@@ -33,6 +34,13 @@ class Blank {
         ...blankData,
         userId,
         codeId: codeItem.id
+      });
+
+      this._logRepository.create({
+        actionType: 'Бланк доданий',
+        date: Date.now(),
+        blankId: blank.id,
+        userId: userId
       });
 
       return blank;
