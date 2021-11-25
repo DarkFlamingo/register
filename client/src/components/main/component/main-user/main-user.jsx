@@ -63,7 +63,7 @@ const MainUser = () => {
           {(blank || blank === null) && (
             <div>
               {`Дата та час перевірки бланка: ${moment().format(
-                'MMMM Do YYYY, h:mm:ss'
+                'DD / MM / YY, h:mm:ss'
               )}`}
             </div>
           )}

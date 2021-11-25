@@ -127,9 +127,7 @@ const MainAdmin = () => {
           )}
           {(blank || blank === null) && (
             <div>
-              {`Дата та час перевірки бланка: ${moment().format(
-                'MMMM Do YYYY, h:mm:ss'
-              )}`}
+              {`Дата та час перевірки бланка: ${moment().format('HH')}`}
             </div>
           )}
         </div>

@@ -15,10 +15,14 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
 
   const [issueDate, setIssueDate] = React.useState(blank.issueDate);
 
-  const [option, setOption] = React.useState({
-    code: blank.code.code,
-    name: blank.code.name
-  });
+  const [option, setOption] = React.useState(
+    blank.code
+      ? {
+          code: blank.code.code,
+          name: blank.code.name
+        }
+      : null
+  );
 
   const checkNumber = value => {
     const regExp = new RegExp('^[0-9]+$');
@@ -69,8 +73,8 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
   };
 
   return (
-    <>
-      <Modal.Header>Додавання бланка</Modal.Header>
+    <div className={styles['update-wrapper']}>
+      <Modal.Header>Оновлення бланка</Modal.Header>
       <Modal.Content image>
         <Modal.Description>
           <Form name="checkBlankForm" size="large">
@@ -128,7 +132,7 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
           Оновити
         </Button>
       </Modal.Actions>
-    </>
+    </div>
   );
 };
 

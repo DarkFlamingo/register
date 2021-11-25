@@ -26,26 +26,31 @@ const ManageBlanks = ({ onClose }) => {
               <List.Header as="a">Серія - номер</List.Header>
             </List.Content>
           </div>
-          {blanks.map(el => (
-            <div key={el.id} className={styles.item}>
-              <List.Content>
-                <List.Header>{`${el.series} - ${el.number}`}</List.Header>
-              </List.Content>
-              <Button
-                className={styles['button-unblocked']}
-                onClick={() => setBlank(el)}
-              >
-                Редагувати
-              </Button>
+          <div className={styles['update-wrapper']}>
+            <div>
+              {blank ? (
+                <UpdateBlankModal
+                  setOpen={setBlank}
+                  updateBlank={handleUpdateBlank}
+                  blank={blank}
+                />
+              ) : (
+                blanks.map(el => (
+                  <div key={el.id} className={styles.item}>
+                    <List.Content>
+                      <List.Header>{`${el.series} - ${el.number}`}</List.Header>
+                    </List.Content>
+                    <Button
+                      className={styles['button-unblocked']}
+                      onClick={() => setBlank(el)}
+                    >
+                      Редагувати
+                    </Button>
+                  </div>
+                ))
+              )}
             </div>
-          ))}
-          {blank && (
-            <UpdateBlankModal
-              setOpen={setBlank}
-              updateBlank={handleUpdateBlank}
-              blank={blank}
-            />
-          )}
+          </div>
         </List>
         <Button onClick={onClose}>Вихід</Button>
       </div>
