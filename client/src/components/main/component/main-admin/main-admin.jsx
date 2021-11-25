@@ -14,7 +14,8 @@ import {
   AddBlankModal,
   GetExtractModal,
   Extract,
-  LogsModal
+  LogsModal,
+  ManageBlanks
 } from 'src/components/common/common';
 import moment from 'moment';
 import { ADMIN_AVA_URL } from 'src/common/constants/constants';
@@ -28,6 +29,7 @@ const MainAdmin = () => {
   const [isAddBlank, setIsAddBlank] = useState(false);
   const [isGetExtract, setIsGetExtract] = useState(false);
   const [isLogsModal, setIsLogsModal] = useState(false);
+  const [isManageBlanksModal, setIsManageBlanksModal] = useState(false);
 
   const { blank, extract } = useSelector(state => ({
     blank: state.blank.validBlank,
@@ -78,6 +80,12 @@ const MainAdmin = () => {
             <ManageRegistrarsModal
               onClose={() => setIsManageRegistrars(false)}
             />
+          )}
+          <Button onClick={() => setIsManageBlanksModal(true)}>
+            Змінити бланк
+          </Button>
+          {isManageBlanksModal && (
+            <ManageBlanks onClose={() => setIsManageBlanksModal(false)} />
           )}
         </Grid.Column>
       </Grid.Row>

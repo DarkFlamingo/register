@@ -19,7 +19,14 @@ const Routing = () => {
     registrars: state.people.registrars,
     logs: state.log.logs
   }));
-  const { loadCurrentUser, loadRegistrars, logout, loadUsers, loadLogs } = useAction();
+  const {
+    loadCurrentUser,
+    loadRegistrars,
+    logout,
+    loadUsers,
+    loadLogs,
+    loadAllBlanks
+  } = useAction();
 
   const hasToken = Boolean(storage.getItem(StorageKey.TOKEN));
   const hasUser = Boolean(user);
@@ -30,6 +37,7 @@ const Routing = () => {
       loadRegistrars();
       loadUsers();
       loadLogs();
+      loadAllBlanks();
     }
   }, [hasToken]);
 

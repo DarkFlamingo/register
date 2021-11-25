@@ -5,6 +5,20 @@ class Blank {
     this._http = http;
   }
 
+  getAllBlanks() {
+    return this._http.load('/api/blanks/all', {
+      method: 'GET'
+    });
+  }
+
+  updateById(data) {
+    return this._http.load('/api/blanks/update', {
+      method: 'PUT',
+      contentType: ContentType.JSON,
+      payload: JSON.stringify(data)
+    });
+  }
+
   checkBlank(payload) {
     return this._http.load('/api/blanks/check', {
       method: HttpMethod.GET,

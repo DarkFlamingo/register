@@ -12,6 +12,26 @@ const initBlank = (Router, services) => {
       .catch(next)
   );
 
+  router.get(
+    BlankApiPath.ALL,
+    checkRoles([Role.Admin, Role.Registrar]),
+    (req, res, next) =>
+      blankService
+        .getAllBlanks(req.query)
+        .then(blanks => res.send(blanks))
+        .catch(next)
+  );
+
+  router.put(
+    BlankApiPath.UPDATE,
+    checkRoles([Role.Admin, Role.Registrar]),
+    (req, res, next) =>
+      blankService
+        .updateBlanks({ id: req.body.id, ...req.body })
+        .then(blank => res.send(blank))
+        .catch(next)
+  );
+
   router.post(
     BlankApiPath.ROOT,
     checkRoles([Role.Admin, Role.Registrar]),

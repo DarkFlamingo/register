@@ -1,0 +1,60 @@
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { Button, List } from 'src/components/common/common';
+import { blank as blankService } from 'src/services/services';
+import UpdateBlankModal from '../update-blank-modal/update-blank-modal';
+import styles from './styles.module.scss';
+
+const ManageBlanks = ({ onClose }) => {
+  const [blank, setBlank] = React.useState(null);
+
+  const { blanks } = useSelector(state => ({
+    blanks: state.blank.blanks
+  }));
+
+  const handleUpdateBlank = data => {
+    blankService.updateById(data);
+  };
+
+  return (
+    <div className={styles.modal}>
+      <div className={styles['modal-content']}>
+        <List className={styles.list} divided relaxed>
+          <div key="fsdafds" className={styles.item}>
+            <List.Content>
+              <List.Header as="a">Серія - номер</List.Header>
+            </List.Content>
+          </div>
+          {blanks.map(el => (
+            <div key={el.id} className={styles.item}>
+              <List.Content>
+                <List.Header>{`${el.series} - ${el.number}`}</List.Header>
+              </List.Content>
+              <Button
+                className={styles['button-unblocked']}
+                onClick={() => setBlank(el)}
+              >
+                Редагувати
+              </Button>
+            </div>
+          ))}
+          {blank && (
+            <UpdateBlankModal
+              setOpen={setBlank}
+              updateBlank={handleUpdateBlank}
+              blank={blank}
+            />
+          )}
+        </List>
+        <Button onClick={onClose}>Вихід</Button>
+      </div>
+    </div>
+  );
+};
+
+ManageBlanks.propTypes = {
+  onClose: PropTypes.func.isRequired
+};
+
+export default ManageBlanks;

@@ -2,12 +2,19 @@ import { createAction } from '@reduxjs/toolkit';
 import { blank as blankService } from 'src/services/services';
 
 const ActionType = {
-  SET_VALID_BLANK: 'blank/set-valid-blank'
+  SET_VALID_BLANK: 'blank/set-valid-blank',
+  SET_BLANKS: 'blanks/set-blanks'
 };
 
 const setValidBlank = createAction(ActionType.SET_VALID_BLANK, blank => ({
   payload: {
     blank
+  }
+}));
+
+const setBlanks = createAction(ActionType.SET_BLANKS, blanks => ({
+  payload: {
+    blanks
   }
 }));
 
@@ -20,4 +27,10 @@ const checkBlank = data => async dispatch => {
   }
 };
 
-export { setValidBlank, checkBlank };
+const loadAllBlanks = () => async dispatch => {
+  const blanks = await blankService.getAllBlanks();
+
+  dispatch(setBlanks(blanks));
+};
+
+export { setValidBlank, setBlanks, checkBlank, loadAllBlanks };

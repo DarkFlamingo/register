@@ -1,6 +1,8 @@
 const BlankApiPath = {
   CHECK: '/check',
-  ROOT: '/'
+  ALL: '/all',
+  ROOT: '/',
+  UPDATE: '/update',
 };
 
 export { BlankApiPath };

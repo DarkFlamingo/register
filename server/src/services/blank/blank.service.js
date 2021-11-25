@@ -24,6 +24,18 @@ class Blank {
     }
   }
 
+  async getAllBlanks() {
+    const blanks = await this._blankRepository.getAllBlanksForManage();
+
+    return blanks;
+  }
+
+  async updateBlanks({ id, ...data }) {
+    const blank = await this._blankRepository.updateById(id, data);
+
+    return blank;
+  }
+
   async addBlank({ userId, data }) {
     const { code, name, ...blankData } = data;
 

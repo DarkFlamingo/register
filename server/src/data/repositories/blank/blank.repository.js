@@ -90,7 +90,7 @@ class Blank extends Abstract {
   getBlankBySeriesAndNumber({ number, series }) {
     return this.model.findOne({
       group: ['blanks.id', 'code.id'],
-      attributes: ['issueDate', 'series', 'number'],
+      attributes: ['issueDate', 'series', 'number', 'id'],
       include: [
         {
           model: this._codeModel,
@@ -98,6 +98,19 @@ class Blank extends Abstract {
         }
       ],
       where: { number, series }
+    });
+  }
+
+  getAllBlanksForManage() {
+    return this.model.findAll({
+      group: ['blanks.id', 'code.id'],
+      attributes: ['issueDate', 'series', 'number', 'id'],
+      include: [
+        {
+          model: this._codeModel,
+          attributes: ['code', 'name']
+        }
+      ]
     });
   }
 

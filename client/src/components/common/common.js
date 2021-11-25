@@ -28,6 +28,7 @@ import AddBlankModal from './add-blank-modal/add-blank-modal';
 import GetExtractModal from './get-extract-modal/get-extract-modal';
 import Extract from './extract/extract';
 import LogsModal from './logs-modal/logs-modal';
+import ManageBlanks from './manage-blanks/manage-blanks';
 
 export {
   Header,
@@ -57,5 +58,6 @@ export {
   GetExtractModal,
   Extract,
   Select,
-  LogsModal
+  LogsModal,
+  ManageBlanks
 };
