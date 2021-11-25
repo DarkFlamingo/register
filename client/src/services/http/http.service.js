@@ -25,7 +25,7 @@ class Http {
       headers,
       body: payload
     })
-      .then(this._checkStatus)
+      // .then(this._checkStatus)
       .then(this._parseJSON)
       .catch(this._throwError);
   }

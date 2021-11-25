@@ -19,6 +19,12 @@ const Main = ({ handleLogOut }) => {
 
   const renderRegistrarMain = () => <MainRegistrar />;
 
+  const renderBlocked = () => (
+    <div className="center-all">
+      <h3>Вас заблоковано</h3>
+    </div>
+  );
+
   const renderMain = () => {
     switch (user.role) {
       case Role.User: {
@@ -28,7 +34,11 @@ const Main = ({ handleLogOut }) => {
         return renderAdminMain();
       }
       case Role.Registrar: {
-        return renderRegistrarMain();
+        if (user.isActive) {
+          return renderRegistrarMain();
+        } else {
+          return renderBlocked();
+        }
       }
       default: {
         return <NotFoundPage />;
