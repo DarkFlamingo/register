@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { log as logService } from 'src/services/services';
 
 const ActionType = {
-  SET_LOGS: 'extract/set-extract'
+  SET_LOGS: 'log/set-logs'
 };
 
 const setLogs = createAction(ActionType.SET_LOGS, logs => ({

@@ -39,7 +39,7 @@ const Main = ({ handleLogOut }) => {
   return (
     <>
       <Button className="btn-header" onClick={handleLogOut}>
-        Exit
+        Вихід
       </Button>
       <Grid
         textAlign="center"

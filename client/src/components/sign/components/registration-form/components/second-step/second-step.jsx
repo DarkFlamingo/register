@@ -49,11 +49,11 @@ const FirstStep = ({
   setUnitAdressValid
 }) => (
   <Segment className={styles['registration-wrapper']}>
-    <h2 className={styles.title}>Register for free account</h2>
+    <h2 className={styles.title}>Зареєструй свій аккаунт</h2>
     <Form.Input
       fluid
       iconPosition="left"
-      placeholder="Surname"
+      placeholder="Прізвище"
       error={!isSurnameValid}
       onChange={ev => surnameChanged(ev.target.value)}
       onBlur={() => setSurnameValid(Boolean(surname))}
@@ -62,7 +62,7 @@ const FirstStep = ({
     <Form.Input
       fluid
       iconPosition="left"
-      placeholder="Patronymic"
+      placeholder="По батькові"
       error={!isPatronymicValid}
       onChange={ev => patronymicChanged(ev.target.value)}
       onBlur={() => setPatronymicValid(Boolean(patronymic))}
@@ -71,7 +71,7 @@ const FirstStep = ({
     <Form.Input
       fluid
       iconPosition="left"
-      placeholder="Series"
+      placeholder="Серія"
       error={!isSeriesValid}
       onChange={ev => seriesChanged(ev.target.value)}
       onBlur={() => setSeriesValid(Boolean(series))}
@@ -81,7 +81,7 @@ const FirstStep = ({
       fluid
       iconPosition="left"
       type="date"
-      placeholder="Date of expiry"
+      placeholder="Дата видачі"
       error={!isDateOfExpiryValid}
       onChange={ev => dateOfExpiryChanged(ev.target.value)}
       onBlur={() => setDateOfExpiryValid(Boolean(dateOfExpiry))}
@@ -91,7 +91,7 @@ const FirstStep = ({
       fluid
       iconPosition="left"
       type="date"
-      placeholder="Unit name"
+      placeholder="Дата закінчення"
       error={!isDateOfIssueValid}
       onChange={ev => dateOfIssueChanged(ev.target.value)}
       onBlur={() => setDateOfIssueValid(Boolean(dateOfIssue))}
@@ -100,7 +100,7 @@ const FirstStep = ({
     <Form.Input
       fluid
       iconPosition="left"
-      placeholder="Document number"
+      placeholder="Номер"
       error={!isDocumentNumberValid}
       onChange={ev => documentNumberChanged(ev.target.value)}
       onBlur={() => setDocumentNumberValid(Boolean(documentNumber))}
@@ -118,7 +118,7 @@ const FirstStep = ({
     <Form.Input
       fluid
       iconPosition="left"
-      placeholder="Unit code"
+      placeholder="Огран що видав(код)"
       error={!isUnitCodeValid}
       onChange={ev => unitCodeChanged(ev.target.value)}
       onBlur={() => setUnitCodeValid(Boolean(unitCode))}
@@ -127,7 +127,7 @@ const FirstStep = ({
     <Form.Input
       fluid
       iconPosition="left"
-      placeholder="Unit name"
+      placeholder="Огран що видав(назва)"
       error={!isUnitNameValid}
       onChange={ev => unitNameChanged(ev.target.value)}
       onBlur={() => setUnitNameValid(Boolean(unitName))}
@@ -136,7 +136,7 @@ const FirstStep = ({
     <Form.Input
       fluid
       iconPosition="left"
-      placeholder="Unit adress"
+      placeholder="Огран що видав(адреса)"
       error={!isUnitAdressValid}
       onChange={ev => unitAdressChanged(ev.target.value)}
       onBlur={() => setUnitAdressValid(Boolean(unitAdress))}
@@ -152,7 +152,7 @@ const FirstStep = ({
         isPrimary
         onClick={previousStepClick}
       >
-        Previous
+        Попередня
       </Button>
       <Button
         type={ButtonType.SUBMIT}
@@ -162,7 +162,7 @@ const FirstStep = ({
         isFluid
         isPrimary
       >
-        Register
+        Зареєструватись
       </Button>
     </div>
   </Segment>

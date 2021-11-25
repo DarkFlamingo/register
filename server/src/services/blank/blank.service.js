@@ -27,7 +27,11 @@ class Blank {
   async addBlank({ userId, data }) {
     const { code, name, ...blankData } = data;
 
-    const codeItem = await this._codeRepository.create({ code, name });
+    let codeItem = null;
+
+    if (code && name) {
+      codeItem = await this._codeRepository.create({ code, name });
+    }
 
     if (codeItem) {
       const blank = await this._blankRepository.create({
@@ -36,16 +40,32 @@ class Blank {
         codeId: codeItem.id
       });
 
-      this._logRepository.create({
-        actionType: 'Бланк доданий',
-        date: Date.now(),
-        blankId: blank.id,
-        userId: userId
-      });
+      if (blank) {
+        this._logRepository.create({
+          actionType: 'Бланк доданий',
+          date: Date.now(),
+          blankId: blank.id,
+          userId: userId
+        });
+      }
 
       return blank;
     } else {
-      throw new ServerError({ status: 400, message: 'Bad request' });
+      const blank = await this._blankRepository.create({
+        ...blankData,
+        userId
+      });
+
+      if (blank) {
+        this._logRepository.create({
+          actionType: 'Бланк доданий',
+          date: Date.now(),
+          blankId: blank.id,
+          userId: userId
+        });
+      }
+
+      return blank;
     }
   }
 }

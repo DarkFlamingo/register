@@ -1,7 +1,9 @@
+/* eslint-disable */
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Form } from 'src/components/common/common';
+import { Modal, Button, Form, Select } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
+import { ISSUE_CODE } from 'src/common/constants/constants';
 import styles from './styles.module.scss';
 
 const CheckBlankModal = ({ setOpen, addBlank }) => {
@@ -13,7 +15,7 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
 
   const [issueDate, setIssueDate] = React.useState('');
 
-  const [code, setCode] = React.useState(-1);
+  const [option, setOption] = React.useState(null);
 
   const checkNumber = value => {
     const regExp = new RegExp('^[0-9]+$');
@@ -27,7 +29,8 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
 
   const checkNumberString = () => (isNumberValid ? false : '6 або 7 цифр');
 
-  const checkSeriesString = () => (isSeriesValid ? false : 'Кирилиця 2 або 3 букви');
+  const checkSeriesString = () =>
+    isSeriesValid ? false : 'Кирилиця 2 або 3 букви';
 
   const seriesChanged = value => {
     setSeriesValid(checkSeries(value));
@@ -40,8 +43,25 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
   };
 
   const handleAddBlank = () => {
-    addBlank({ series, number, issueDate, code, name: 'test' });
+    if (option) {
+      addBlank({
+        series,
+        number,
+        issueDate,
+        code: option.code,
+        name: option.name
+      });
+    } else {
+      addBlank({ series, number, issueDate });
+    }
     setOpen(false);
+  };
+
+  const getOptions = () => {
+    return Object.entries(ISSUE_CODE).map(([key, value]) => ({
+      value: { code: key, name: value },
+      label: value.length > 30 ? `${value.slice(0, 30)}...` : value
+    }));
   };
 
   return (
@@ -72,7 +92,7 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
                 value={number}
               />
               <Form.Input
-                className={styles['input-item']}
+                className={styles['input-item-date']}
                 fluid
                 type="date"
                 iconPosition="left"
@@ -80,14 +100,9 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
                 onChange={ev => setIssueDate(ev.target.value)}
                 value={issueDate}
               />
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                type="number"
-                iconPosition="left"
-                placeholder="Код витрачання"
-                onChange={ev => setCode(ev.target.value)}
-                value={code}
+              <Select
+                options={getOptions()}
+                onChange={obj => setOption(obj.value)}
               />
             </div>
           </Form>

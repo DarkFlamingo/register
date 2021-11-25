@@ -13,6 +13,7 @@ import {
   Header,
   List
 } from 'semantic-ui-react';
+import Select from 'react-select';
 import { NavLink } from 'react-router-dom';
 import Button from './button/button';
 import Icon from './icon/icon';
@@ -55,5 +56,6 @@ export {
   AddBlankModal,
   GetExtractModal,
   Extract,
+  Select,
   LogsModal
 };

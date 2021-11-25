@@ -21,12 +21,12 @@ const FirstStep = ({
   nextStepClick
 }) => (
   <Segment className={styles['registration-wrapper']}>
-    <h2 className={styles.title}>Register for free account</h2>
+    <h2 className={styles.title}>Зареєструй свій аккаунт</h2>
     <Form.Input
       fluid
       icon="at"
       iconPosition="left"
-      placeholder="Email"
+      placeholder="Логін"
       type="email"
       error={!isLoginValid}
       onChange={ev => loginChanged(ev.target.value)}
@@ -37,7 +37,7 @@ const FirstStep = ({
       fluid
       icon="user"
       iconPosition="left"
-      placeholder="Name"
+      placeholder="І'мя"
       type="text"
       error={!isNameValid}
       onChange={ev => nameChanged(ev.target.value)}
@@ -48,7 +48,7 @@ const FirstStep = ({
       fluid
       icon="lock"
       iconPosition="left"
-      placeholder="Password"
+      placeholder="Пароль"
       type="password"
       onChange={ev => passwordChanged(ev.target.value)}
       error={!isPasswordValid}
@@ -66,7 +66,7 @@ const FirstStep = ({
         onClick={nextStepClick}
         isDisabled={!(login && name && password)}
       >
-        Next
+        Наступна
       </Button>
     </div>
   </Segment>

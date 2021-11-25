@@ -216,9 +216,9 @@ const RegistrationForm = ({ onRegister }) => {
         )}
       </Form>
       <Message>
-        Alredy with us?
+        Вже з нами?
         <NavLink exact to={AppRoute.LOGIN}>
-          Sign In
+          Увійти
         </NavLink>
       </Message>
     </>

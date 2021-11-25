@@ -49,12 +49,12 @@ const LoginForm = ({ onLogin }) => {
     <>
       <Form name="loginForm" size="large" onSubmit={handleLoginClick}>
         <Segment className={styles['login-wrapper']}>
-          <h2 className={styles.title}>Login to your account</h2>
+          <h2 className={styles.title}>Увійти до аккаунту</h2>
           <Form.Input
             fluid
             icon="at"
             iconPosition="left"
-            placeholder="login"
+            placeholder="Логін"
             type="login"
             error={!isLoginValid}
             onChange={ev => emailChanged(ev.target.value)}
@@ -64,7 +64,7 @@ const LoginForm = ({ onLogin }) => {
             fluid
             icon="lock"
             iconPosition="left"
-            placeholder="Password"
+            placeholder="Пароль"
             type="password"
             error={!isPasswordValid}
             onChange={ev => passwordChanged(ev.target.value)}
@@ -79,15 +79,15 @@ const LoginForm = ({ onLogin }) => {
               isFluid
               isPrimary
             >
-              Login
+              Увійти
             </Button>
           </div>
         </Segment>
       </Form>
       <Message>
-        New to us?
+        Новий користувач?
         <NavLink exact to={AppRoute.REGISTRATION}>
-          Sign Up
+          Зареєструватись
         </NavLink>
       </Message>
     </>
