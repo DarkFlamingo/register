@@ -28,7 +28,7 @@ const Routing = () => {
     loadAllBlanks
   } = useAction();
 
-  const hasToken = Boolean(storage.getItem(StorageKey.TOKEN));
+  const hasToken = Boolean(storage.getItem(StorageKey.TOKEN) && storage.getItem(StorageKey.TOKEN) !== 'undefined');
   const hasUser = Boolean(user);
 
   React.useEffect(() => {

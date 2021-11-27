@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -5,6 +6,7 @@ import { Button, List } from 'src/components/common/common';
 import { blank as blankService } from 'src/services/services';
 import UpdateBlankModal from '../update-blank-modal/update-blank-modal';
 import styles from './styles.module.scss';
+import { useAction } from 'src/hooks/useAction';
 
 const ManageBlanks = ({ onClose }) => {
   const [blank, setBlank] = React.useState(null);
@@ -13,8 +15,11 @@ const ManageBlanks = ({ onClose }) => {
     blanks: state.blank.blanks
   }));
 
-  const handleUpdateBlank = data => {
-    blankService.updateById(data);
+  const { loadAllBlanks } = useAction();
+
+  const handleUpdateBlank = async data => {
+    await blankService.updateById(data);
+    loadAllBlanks();
   };
 
   return (

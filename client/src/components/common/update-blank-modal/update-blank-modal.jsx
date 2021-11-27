@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Modal, Button, Form, Select } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
 import { ISSUE_CODE } from 'src/common/constants/constants';
-import styles from './styles.module.scss';
+import styles from './styles.module.scss'
 
 const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
   const [series, setSeries] = React.useState(blank.series);
