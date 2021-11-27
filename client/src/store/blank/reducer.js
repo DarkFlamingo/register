@@ -3,7 +3,7 @@ import { setValidBlank, setBlanks } from './actions';
 
 const initialState = {
   validBlank: false,
-  blank: []
+  blanks: []
 };
 
 const reducer = createReducer(initialState, builder => {

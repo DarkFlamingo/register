@@ -7,7 +7,6 @@ import {
   CheckBlankModal,
   Modal,
   Button,
-  BlankItem,
   Image,
   ManageRegistrarsModal,
   ManageUsersModal,
@@ -15,9 +14,9 @@ import {
   GetExtractModal,
   Extract,
   LogsModal,
-  ManageBlanks
+  ManageBlanks,
+  BlankCheckResult
 } from 'src/components/common/common';
-import moment from 'moment';
 import { ADMIN_AVA_URL } from 'src/common/constants/constants';
 import { blank as blankService } from 'src/services/services';
 import styles from './styles.module.scss';
@@ -40,7 +39,7 @@ const MainAdmin = () => {
     setIsModalOpen(isOpen);
   };
 
-  const { checkBlank, setExtract } = useAction();
+  const { checkBlank, setExtract, setValidBlank } = useAction();
 
   const handleCheckBlank = async ({ series, number }) => {
     checkBlank({ series, number });
@@ -118,18 +117,7 @@ const MainAdmin = () => {
           <ManageUsersModal onClose={() => setIsManageUsers(false)} />
         )}
         <div className={styles['blank-wrapper']}>
-          {blank && <BlankItem blank={blank} />}
-          {blank === null && (
-            <div className={styles['blank-check-false']}>
-              Інформація про витрачання бланка в Єдиному реєстрі спеціальних
-              бланків нотаріальних документів відсутня
-            </div>
-          )}
-          {(blank || blank === null) && (
-            <div>
-              {`Дата та час перевірки бланка: ${moment().format('HH')}`}
-            </div>
-          )}
+          {blank !== false && <BlankCheckResult blank={blank} onClose={() => setValidBlank(false)} />}
         </div>
       </Grid.Row>
     </Grid.Column>

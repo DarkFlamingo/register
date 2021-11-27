@@ -47,26 +47,30 @@ const CheckBlankModal = ({ setOpen, checkBlank }) => {
         <Modal.Description>
           <Form name="checkBlankForm" size="large">
             <div className={styles['input-wrapper']}>
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                iconPosition="left"
-                placeholder="Серія"
-                error={checkSeriesString()}
-                onChange={ev => seriesChanged(ev.target.value)}
-                onBlur={() => setSeriesValid(checkSeries(series))}
-                value={series}
-              />
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                iconPosition="left"
-                placeholder="Номер"
-                error={checkNumberString()}
-                onChange={ev => numberChanged(ev.target.value)}
-                onBlur={() => setNumberValid(checkNumber(number))}
-                value={number}
-              />
+              <div className={styles['input-item']}>
+                <label>Серія бланку</label>
+                <Form.Input
+                  fluid
+                  iconPosition="left"
+                  placeholder="Серія"
+                  error={checkSeriesString()}
+                  onChange={ev => seriesChanged(ev.target.value)}
+                  onBlur={() => setSeriesValid(checkSeries(series))}
+                  value={series}
+                />
+              </div>
+              <div className={styles['input-item']}>
+                <label>Номер бланку</label>
+                <Form.Input
+                  fluid
+                  iconPosition="left"
+                  placeholder="Номер"
+                  error={checkNumberString()}
+                  onChange={ev => numberChanged(ev.target.value)}
+                  onBlur={() => setNumberValid(checkNumber(number))}
+                  value={number}
+                />
+              </div>
             </div>
           </Form>
         </Modal.Description>
