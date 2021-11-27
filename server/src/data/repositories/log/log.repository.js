@@ -32,7 +32,8 @@ class Log extends Abstract {
           ],
           attributes: ['series', 'number']
         }
-      ]
+      ],
+      order: [['date', 'DESC']]
     });
   }
 }

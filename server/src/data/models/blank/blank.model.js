@@ -5,7 +5,7 @@ const init = orm => {
     'blanks',
     {
       issueDate: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DATE
       },
       series: {

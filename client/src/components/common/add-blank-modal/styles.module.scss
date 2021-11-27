@@ -7,12 +7,12 @@
   .input-item {
     flex: 1;
     margin: 10px !important;
-    width: 200px;
+    width: 300px;
   }
-}
 
-.input-item-date {
-  width: 200px;
+  span {
+    color: rgb(116, 116, 116);
+  }
 }
 
 .btn-wrapper {

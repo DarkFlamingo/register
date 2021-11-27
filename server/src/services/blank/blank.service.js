@@ -1,5 +1,3 @@
-import { ServerError } from '../../helpers/helpers';
-
 class Blank {
   constructor({ blankRepository, codeRepository, logRepository }) {
     this._blankRepository = blankRepository;
@@ -38,7 +36,7 @@ class Blank {
 
   async addBlank({ userId, data }) {
     const { code, name, ...blankData } = data;
-
+  
     let codeItem = null;
 
     if (code && name) {

@@ -1,0 +1,28 @@
+.input-wrapper {
+  display: flex;
+  padding: 20px 0px;
+
+  .input-item {
+    flex: 1;
+    margin: 0 10px !important;
+  }
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 10px 0px 5px !important;
+}
+
+.select-something {
+  flex: 1;
+}
+
+.data-input-wrapper {
+  label {
+    color: rgb(116, 116, 116);
+  }
+
+  flex: 1;
+  margin: 10px !important;
+}

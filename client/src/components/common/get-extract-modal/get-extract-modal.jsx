@@ -6,7 +6,7 @@ import { Modal, Button, Form, Select } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
 import { extract as extractService } from 'src/services/services';
 import { ISSUE_CODE } from 'src/common/constants/constants';
-import styles from './styles.module.scss';
+import './styles.scss';
 import { Document, HeadingLevel } from 'docx';
 
 const CheckBlankModal = ({ setOpen }) => {
@@ -92,36 +92,44 @@ const CheckBlankModal = ({ setOpen }) => {
       <Modal.Content image>
         <Modal.Description>
           <Form name="checkBlankForm" size="large">
-            <div className={styles['input-wrapper']}>
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                iconPosition="left"
-                placeholder="Серія"
-                error={checkSeriesString()}
-                onChange={ev => seriesChanged(ev.target.value)}
-                onBlur={() => setSeriesValid(checkSeries(series))}
-                value={series}
-              />
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                iconPosition="left"
-                placeholder="Номер"
-                error={checkNumberString()}
-                onChange={ev => numberChanged(ev.target.value)}
-                onBlur={() => setNumberValid(checkNumber(number))}
-                value={number}
-              />
-              <Select
-                options={getOptions()}
-                onChange={obj => setOption(obj.value)}
-              />
+            <div className={'input-wrapper'}>
+              <div className={'input-item'}>
+                <span>Серія бланку</span>
+                <Form.Input
+                  fluid
+                  iconPosition="left"
+                  placeholder="Серія"
+                  error={checkSeriesString()}
+                  onChange={ev => seriesChanged(ev.target.value)}
+                  onBlur={() => setSeriesValid(checkSeries(series))}
+                  value={series}
+                />
+              </div>
+              <div className={'input-item'}>
+                <span>Номер бланку</span>
+                <Form.Input
+                  fluid
+                  iconPosition="left"
+                  placeholder="Номер"
+                  error={checkNumberString()}
+                  onChange={ev => numberChanged(ev.target.value)}
+                  onBlur={() => setNumberValid(checkNumber(number))}
+                  value={number}
+                />
+              </div>
+              <div className={'input-item'}>
+                <span>Код витрачання</span>
+                <Select
+                  className={'select-something'}
+                  options={getOptions()}
+                  onChange={obj => setOption(obj.value)}
+                />
+              </div>
             </div>
           </Form>
         </Modal.Description>
       </Modal.Content>
-      <Modal.Actions className={styles['btn-wrapper']}>
+      <Modal.Actions className={'btn-wrapper'}>
         <Button color="black" onClick={() => setOpen(false)}>
           Закрити
         </Button>
