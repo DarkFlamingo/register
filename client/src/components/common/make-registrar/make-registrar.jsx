@@ -1,8 +1,13 @@
+/* eslint-disable */
 import * as React from 'react';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Form } from 'src/components/common/common';
+import { Modal, Button, Form, Select } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
+import {
+  ORGANIZATION_NAMES,
+  POSITION_NAMES
+} from 'src/common/constants/constants';
 import { useAction } from 'src/hooks/useAction';
 import styles from './styles.module.scss';
 
@@ -19,6 +24,9 @@ const MakeRegistrar = ({ setOpen, id }) => {
     makeRegistrar({ id, data: { address, positionName, organizationName } });
   };
 
+  const getOptions = arrayOfStrings =>
+    arrayOfStrings.map(str => ({ label: str, value: str }));
+
   return (
     <>
       <Modal.Header>Зареєструвати реєстратора</Modal.Header>
@@ -26,30 +34,33 @@ const MakeRegistrar = ({ setOpen, id }) => {
         <Modal.Description>
           <Form name="checkBlankForm" size="large">
             <div className={styles['input-wrapper']}>
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                placeholder="Адреса"
-                error={checkString(address)}
-                onChange={ev => setAddress(ev.target.value)}
-                value={address}
-              />
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                placeholder="Позиція"
-                error={checkString(positionName)}
-                onChange={ev => setPositionName(ev.target.value)}
-                value={positionName}
-              />
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                placeholder="Організація"
-                error={checkString(organizationName)}
-                onChange={ev => setOrganizationName(ev.target.value)}
-                value={organizationName}
-              />
+              <div className={styles['data-input-wrapper']}>
+                <label>Адреса організації</label>
+                <Form.Input
+                  className={styles['input-item']}
+                  fluid
+                  placeholder="Адреса"
+                  error={checkString(address)}
+                  onChange={ev => setAddress(ev.target.value)}
+                  value={address}
+                />
+              </div>
+              <div className={styles['data-input-wrapper']}>
+                <label>Назва організації</label>
+                <Select
+                  className={styles['select-something']}
+                  options={getOptions(ORGANIZATION_NAMES)}
+                  onChange={obj => setOrganizationName(obj.value)}
+                />
+              </div>
+              <div className={styles['data-input-wrapper']}>
+                <label>Посада</label>
+                <Select
+                  className={styles['select-something']}
+                  options={getOptions(POSITION_NAMES)}
+                  onChange={obj => setPositionName(obj.value)}
+                />
+              </div>
             </div>
           </Form>
         </Modal.Description>
