@@ -1,4 +1,14 @@
-.modal {
+@font-face {
+  font-family: 'Custom';
+  src: url('./Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Custom-Bold';
+  src: url('./Roboto-Medium.ttf') format('truetype');
+}
+
+.modal-custom {
   display: block;
   position: fixed;
   z-index: 1;
@@ -16,7 +26,7 @@
   margin: 15% auto;
   padding: 10px;
   border: 2px solid rgb(82, 82, 82);
-  width: 40vw;
+  width: 80vw;
 
   .list {
     margin: 10px 10px 30px 10px !important;
@@ -64,4 +74,33 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.extract-wrapper > * {
+  font-family: 'Custom';
+}
+
+.extract-title {
+  font-family: 'Custom';
+}
+
+.extract-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+
+  tr {
+    .extract-th {
+      font-family: 'Custom';
+      padding: 5px;
+      background: #efefef;
+      border: 1px solid #dddddd;
+    }
+
+    td {
+      border: 1px solid #dddddd;
+      padding: 5px;
+    }
+  }
 }
