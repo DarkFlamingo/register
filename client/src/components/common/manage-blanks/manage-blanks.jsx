@@ -26,12 +26,7 @@ const ManageBlanks = ({ onClose }) => {
     <div className={styles.modal}>
       <div className={styles['modal-content']}>
         <List className={styles.list} divided relaxed>
-          <div key="fsdafds" className={styles.item}>
-            <List.Content>
-              <List.Header as="a">Серія - номер</List.Header>
-            </List.Content>
-          </div>
-          <div className={styles['update-wrapper']}>
+          <div className={styles['list-blanks']}>
             <div>
               {blank ? (
                 <UpdateBlankModal
@@ -40,19 +35,27 @@ const ManageBlanks = ({ onClose }) => {
                   blank={blank}
                 />
               ) : (
-                blanks.map(el => (
-                  <div key={el.id} className={styles.item}>
-                    <List.Content>
-                      <List.Header>{`${el.series} - ${el.number}`}</List.Header>
-                    </List.Content>
-                    <Button
-                      className={styles['button-unblocked']}
-                      onClick={() => setBlank(el)}
-                    >
-                      Редагувати
-                    </Button>
-                  </div>
-                ))
+                <table>
+                  <tr>
+                    <th>Серія</th>
+                    <th>Номер</th>
+                    <th>Дія</th>
+                  </tr>
+                  {blanks.map(el => (
+                    <tr>
+                      <td>{el.series}</td>
+                      <td>{el.number}</td>
+                      <td>
+                        <Button
+                          className={styles['button-edit']}
+                          onClick={() => setBlank(el)}
+                        >
+                          Редагувати
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </table>
               )}
             </div>
           </div>
