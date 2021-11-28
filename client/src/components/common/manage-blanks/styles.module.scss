@@ -15,7 +15,7 @@
   background-color: #fefefe;
   margin: 15% auto;
   padding: 30px;
-  border: 2px solid rgb(82, 82, 82);
+  border-radius: 10px;
   width: 40vw;
 
   .list-blanks {
@@ -35,6 +35,9 @@
         td {
           border: 1px solid #dddddd;
           padding: 5px;
+          button {
+            width: 200px !important
+          }
           .button {
             margin-left: 20px;
             color: white;

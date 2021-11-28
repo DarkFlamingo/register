@@ -1,10 +1,8 @@
 /* eslint-disable */
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { Modal, Button, Form, Select } from 'src/components/common/common';
+import { Modal, Button, Form } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
-import { ISSUE_CODE } from 'src/common/constants/constants';
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 
 const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
   const [series, setSeries] = React.useState(blank.series);
@@ -12,17 +10,6 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
 
   const [number, setNumber] = React.useState(blank.number);
   const [isNumberValid, setNumberValid] = React.useState(true);
-
-  const [issueDate, setIssueDate] = React.useState(blank.issueDate);
-
-  const [option, setOption] = React.useState(
-    blank.code
-      ? {
-          code: blank.code.code,
-          name: blank.code.name
-        }
-      : null
-  );
 
   const checkNumber = value => {
     const regExp = new RegExp('^[0-9]+$');
@@ -49,69 +36,48 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
     setNumber(value);
   };
 
-  const handleAddBlank = () => {
-    if (option) {
-      updateBlank({
-        id: blank.id,
-        series,
-        number,
-        issueDate,
-        code: option.code,
-        name: option.name
-      });
-    } else {
-      updateBlank({ id: blank.id, series, number, issueDate });
-    }
+  const handleUpdateBlank = () => {
+    updateBlank({
+      id: blank.id,
+      series,
+      number
+    });
     setOpen(null);
-  };
-
-  const getOptions = () => {
-    return Object.entries(ISSUE_CODE).map(([key, value]) => ({
-      value: { code: key, name: value },
-      label: value.length > 30 ? `${value.slice(0, 30)}...` : value
-    }));
   };
 
   return (
     <div className={styles['update-wrapper']}>
-      <Modal.Header>Оновлення бланка</Modal.Header>
+      <Modal.Header>
+        <h3>Оновлення бланка</h3>
+      </Modal.Header>
       <Modal.Content image>
         <Modal.Description>
           <Form name="checkBlankForm" size="large">
             <div className={styles['input-wrapper']}>
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                iconPosition="left"
-                placeholder="Серія"
-                error={checkSeriesString()}
-                onChange={ev => seriesChanged(ev.target.value)}
-                onBlur={() => setSeriesValid(checkSeries(series))}
-                value={series}
-              />
-              <Form.Input
-                className={styles['input-item']}
-                fluid
-                iconPosition="left"
-                placeholder="Номер"
-                error={checkNumberString()}
-                onChange={ev => numberChanged(ev.target.value)}
-                onBlur={() => setNumberValid(checkNumber(number))}
-                value={number}
-              />
-              <Form.Input
-                className={styles['input-item-date']}
-                fluid
-                type="date"
-                iconPosition="left"
-                placeholder="Дата витрачання"
-                onChange={ev => setIssueDate(ev.target.value)}
-                value={issueDate}
-              />
-              <Select
-                options={getOptions()}
-                onChange={obj => setOption(obj.value)}
-              />
+              <div className={styles['input-item']}>
+                <label>Серія бланку</label>
+                <Form.Input
+                  fluid
+                  iconPosition="left"
+                  placeholder="Серія"
+                  error={checkSeriesString()}
+                  onChange={ev => seriesChanged(ev.target.value)}
+                  onBlur={() => setSeriesValid(checkSeries(series))}
+                  value={series}
+                />
+              </div>
+              <div className={styles['input-item']}>
+                <label>Номер бланку</label>
+                <Form.Input
+                  fluid
+                  iconPosition="left"
+                  placeholder="Номер"
+                  error={checkNumberString()}
+                  onChange={ev => numberChanged(ev.target.value)}
+                  onBlur={() => setNumberValid(checkNumber(number))}
+                  value={number}
+                />
+              </div>
             </div>
           </Form>
         </Modal.Description>
@@ -125,7 +91,7 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
           content="Yep, that's me"
           labelPosition="right"
           icon="checkmark"
-          onClick={handleAddBlank}
+          onClick={handleUpdateBlank}
           positive
           isDisabled={!(number && series && isSeriesValid && isNumberValid)}
         >

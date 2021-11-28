@@ -10,8 +10,6 @@ class Extract {
   async addExtract(user, data, params) {
     const { code, name, series, number } = params;
 
-    console.log(params);
-
     const blank = await this._blankRepository.getBlankFromFilter({
       code,
       name,

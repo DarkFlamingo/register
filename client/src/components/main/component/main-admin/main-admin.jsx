@@ -29,6 +29,7 @@ const MainAdmin = () => {
   const [isGetExtract, setIsGetExtract] = useState(false);
   const [isLogsModal, setIsLogsModal] = useState(false);
   const [isManageBlanksModal, setIsManageBlanksModal] = useState(false);
+  const [isManageBlanksModalForIssue, setIsManageBlanksModalForIssue] = useState(false);
 
   const { blank, extract } = useSelector(state => ({
     blank: state.blank.validBlank,
@@ -48,6 +49,9 @@ const MainAdmin = () => {
   const handleAddBlank = async data => {
     blankService.addBlank(data);
   };
+
+  const isUpdateFully = true;
+  const isUpdateNotFully = false;
 
   return (
     <Grid.Column className={styles['main-user-wrapper']}>
@@ -84,7 +88,19 @@ const MainAdmin = () => {
             Змінити бланк
           </Button>
           {isManageBlanksModal && (
-            <ManageBlanks onClose={() => setIsManageBlanksModal(false)} />
+            <ManageBlanks
+              onClose={() => setIsManageBlanksModal(false)}
+              isUpdateFully={isUpdateFully}
+            />
+          )}
+          <Button onClick={() => setIsManageBlanksModalForIssue(true)}>
+            Внести дані витрачання
+          </Button>
+          {isManageBlanksModalForIssue && (
+            <ManageBlanks
+              onClose={() => setIsManageBlanksModalForIssue(false)}
+              isUpdateFully={isUpdateNotFully}
+            />
           )}
         </Grid.Column>
       </Grid.Row>
@@ -117,7 +133,12 @@ const MainAdmin = () => {
           <ManageUsersModal onClose={() => setIsManageUsers(false)} />
         )}
         <div className={styles['blank-wrapper']}>
-          {blank !== false && <BlankCheckResult blank={blank} onClose={() => setValidBlank(false)} />}
+          {blank !== false && (
+            <BlankCheckResult
+              blank={blank}
+              onClose={() => setValidBlank(false)}
+            />
+          )}
         </div>
       </Grid.Row>
     </Grid.Column>

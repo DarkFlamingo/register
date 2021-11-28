@@ -30,6 +30,7 @@ import Extract from './extract/extract';
 import LogsModal from './logs-modal/logs-modal';
 import ManageBlanks from './manage-blanks/manage-blanks';
 import BlankCheckResult from './blank-check-result/blank-check-result';
+import SetBlankIssueCode from './set-issue-code/set-issue-code';
 
 export {
   Header,
@@ -61,5 +62,6 @@ export {
   Select,
   LogsModal,
   ManageBlanks,
-  BlankCheckResult
+  BlankCheckResult,
+  SetBlankIssueCode
 };

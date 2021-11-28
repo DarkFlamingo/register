@@ -27,7 +27,7 @@ const initBlank = (Router, services) => {
     checkRoles([Role.Admin, Role.Registrar]),
     (req, res, next) =>
       blankService
-        .updateBlanks({ id: req.body.id, ...req.body })
+        .updateBlanks(req.user.id, { id: req.body.id, ...req.body })
         .then(blank => res.send(blank))
         .catch(next)
   );

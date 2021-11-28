@@ -23,7 +23,7 @@ const reducer = createReducer(initialState, builder => {
   });
   builder.addCase(deleteUser, (state, action) => {
     const { id } = action.payload;
-    console.log('here');
+
     state.users = state.users.filter(user => user.id !== id);
   });
   builder.addCase(addRegistrar, (state, action) => {

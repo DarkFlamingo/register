@@ -7,7 +7,6 @@ import { ButtonType } from 'src/common/enums/enums';
 import { extract as extractService } from 'src/services/services';
 import { ISSUE_CODE } from 'src/common/constants/constants';
 import './styles.scss';
-import { Document, HeadingLevel } from 'docx';
 
 const CheckBlankModal = ({ setOpen }) => {
   const { setExtract } = useAction();
