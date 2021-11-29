@@ -22,7 +22,9 @@ import { Position } from './position/position.repository';
 import { User } from './user/user.repository';
 
 const user = new User({
-  userModel: UserModel
+  userModel: UserModel,
+  organizationModel: OrganizationModel,
+  positionModel: PositionModel
 });
 
 const authorities = new Authorities({

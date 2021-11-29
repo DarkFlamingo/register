@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { useSelector } from 'react-redux';
 import { Button } from 'src/components/common/common';
 import { PDFExport } from '@progress/kendo-react-pdf';
 import './styles.scss';
@@ -15,6 +15,10 @@ const Extract = ({ extract, onClose }) => {
     }
   };
 
+  const { user } = useSelector(state => ({
+    user: state.profile.user
+  }));
+
   return (
     <div className={'modal-custom'}>
       <div className={'modal-content'}>
@@ -26,7 +30,15 @@ const Extract = ({ extract, onClose }) => {
           author="KendoReact Team"
         >
           <div ref={container} className={'extract-wrapper'}>
-            <div className={'extract-title'}>Витяг з Єдиного реєстру</div>
+            <div className={'extract-title'}>
+              <div className={'extract-title-text'}>
+                Витяг з Єдиного реєстру спецальних бланів нотаріальних
+                документів
+              </div>
+              <div className={'extract-title-organization'}>
+                {`${user.organization.organizationName}, ${user.organization.address}`}
+              </div>
+            </div>
             <div className={'extract-table-wrapper'}>
               <table div className={'extract-table'}>
                 <tr>
@@ -60,6 +72,14 @@ const Extract = ({ extract, onClose }) => {
                   )}
                 </tr>
               </table>
+            </div>
+            <div className={'extract-footer-info'}>
+              <div className={'extract-footer-info-stamp'}>
+                Штамп: __________
+              </div>
+              <div className={'extract-footer-info-signature'}>
+                Підпис: __________
+              </div>
             </div>
           </div>
         </PDFExport>

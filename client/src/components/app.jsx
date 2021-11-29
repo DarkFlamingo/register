@@ -16,9 +16,7 @@ import Main from 'src/components/main/main';
 
 const Routing = () => {
   const { user } = useSelector(state => ({
-    user: state.profile.user,
-    registrars: state.people.registrars,
-    logs: state.log.logs
+    user: state.profile.user
   }));
   const {
     loadCurrentUser,

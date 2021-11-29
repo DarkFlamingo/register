@@ -82,6 +82,28 @@
 
 .extract-title {
   font-family: 'Custom';
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-text {
+    width: 300px;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  &-oranization {
+    width: 250px;
+    text-align: center;
+  }
+}
+
+.extract-footer-info {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  margin-bottom: 30px;
 }
 
 .extract-table {

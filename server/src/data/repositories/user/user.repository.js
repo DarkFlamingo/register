@@ -1,8 +1,10 @@
 import { Abstract } from '../abstract/abstract.repository';
 
 class User extends Abstract {
-  constructor({ userModel }) {
+  constructor({ userModel, positionModel, organizationModel }) {
     super(userModel);
+    this._organizationModel = organizationModel;
+    this._positionModel = positionModel;
   }
 
   addUser(user) {
@@ -34,6 +36,14 @@ class User extends Abstract {
   getUserById(id) {
     return this.model.findOne({
       attributes: ['id', 'login', 'password', 'role', 'isActive'],
+      include: [
+        {
+          model: this._organizationModel
+        },
+        {
+          model: this._positionModel
+        }
+      ],
       where: { id }
     });
   }

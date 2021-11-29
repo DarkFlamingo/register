@@ -10,26 +10,20 @@ import {
   Image,
   ManageRegistrarsModal,
   ManageUsersModal,
-  AddBlankModal,
   GetExtractModal,
   Extract,
   LogsModal,
-  ManageBlanks,
   BlankCheckResult
 } from 'src/components/common/common';
 import { ADMIN_AVA_URL } from 'src/common/constants/constants';
-import { blank as blankService } from 'src/services/services';
 import styles from './styles.module.scss';
 
 const MainAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isManageRegistrars, setIsManageRegistrars] = useState(false);
   const [isManageUsers, setIsManageUsers] = useState(false);
-  const [isAddBlank, setIsAddBlank] = useState(false);
   const [isGetExtract, setIsGetExtract] = useState(false);
   const [isLogsModal, setIsLogsModal] = useState(false);
-  const [isManageBlanksModal, setIsManageBlanksModal] = useState(false);
-  const [isManageBlanksModalForIssue, setIsManageBlanksModalForIssue] = useState(false);
 
   const { blank, extract } = useSelector(state => ({
     blank: state.blank.validBlank,
@@ -46,25 +40,10 @@ const MainAdmin = () => {
     checkBlank({ series, number });
   };
 
-  const handleAddBlank = async data => {
-    blankService.addBlank(data);
-  };
-
-  const isUpdateFully = true;
-  const isUpdateNotFully = false;
-
   return (
     <Grid.Column className={styles['main-user-wrapper']}>
       <Grid.Row className={styles['main-user-ava-wrapper']}>
         <Grid.Column className={styles['main-button-wrapper']}>
-          <Modal
-            onClose={() => setIsAddBlank(false)}
-            onOpen={() => setIsAddBlank(true)}
-            open={isAddBlank}
-            trigger={<Button>Додати бланк</Button>}
-          >
-            <AddBlankModal setOpen={setIsAddBlank} addBlank={handleAddBlank} />
-          </Modal>
           <Button onClick={() => setIsLogsModal(true)}>Перегляд історії</Button>
           {isLogsModal && <LogsModal onClose={() => setIsLogsModal(false)} />}
         </Grid.Column>
@@ -82,24 +61,6 @@ const MainAdmin = () => {
           {isManageRegistrars && (
             <ManageRegistrarsModal
               onClose={() => setIsManageRegistrars(false)}
-            />
-          )}
-          <Button onClick={() => setIsManageBlanksModal(true)}>
-            Змінити бланк
-          </Button>
-          {isManageBlanksModal && (
-            <ManageBlanks
-              onClose={() => setIsManageBlanksModal(false)}
-              isUpdateFully={isUpdateFully}
-            />
-          )}
-          <Button onClick={() => setIsManageBlanksModalForIssue(true)}>
-            Внести дані витрачання
-          </Button>
-          {isManageBlanksModalForIssue && (
-            <ManageBlanks
-              onClose={() => setIsManageBlanksModalForIssue(false)}
-              isUpdateFully={isUpdateNotFully}
             />
           )}
         </Grid.Column>
