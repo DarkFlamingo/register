@@ -2,7 +2,8 @@ const AppRoute = {
   ROOT: '/',
   ANY: '*',
   LOGIN: '/login',
-  REGISTRATION: '/registration'
+  REGISTRATION: '/registration',
+  CHECK: '/check'
 };
 
 export { AppRoute };

@@ -49,3 +49,13 @@
     margin: 10px !important;
   }
 }
+
+.message-wrapper-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .message-wrapper {
+    width: 150px;
+  }
+}

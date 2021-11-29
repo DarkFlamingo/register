@@ -10,6 +10,7 @@ import {
   PrivateRoute
 } from 'src/components/common/common';
 import SignPage from 'src/components/sign/sign';
+import PublicPage from 'src/components/public-page/public-page';
 import NotFoundPage from 'src/components/not-found/not-found';
 import Main from 'src/components/main/main';
 
@@ -57,6 +58,11 @@ const Routing = () => {
             exact
             path={[AppRoute.LOGIN, AppRoute.REGISTRATION]}
             component={SignPage}
+          />
+          <PublicRoute
+            exact
+            path={[AppRoute.CHECK, AppRoute.REGISTRATION]}
+            component={PublicPage}
           />
           <PrivateRoute
             exact

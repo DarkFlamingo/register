@@ -8,24 +8,15 @@ import {
   Modal,
   Button,
   Image,
-  AddBlankModal,
-  GetExtractModal,
-  Extract,
-  ManageBlanks,
   BlankCheckResult
 } from 'src/components/common/common';
-import { ADMIN_AVA_URL } from 'src/common/constants/constants';
-import { blank as blankService } from 'src/services/services';
+import { USER_AVA_URL } from 'src/common/constants/constants';
 import styles from './styles.module.scss';
 
 const MainUser = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAddBlank, setIsAddBlank] = useState(false);
-  const [isGetExtract, setIsGetExtract] = useState(false);
-  const [isManageBlanksModal, setIsManageBlanksModal] = useState(false);
-  const [isManageBlanksModalForIssue, setIsManageBlanksModalForIssue] = useState(false);
 
-  const { blank, extract } = useSelector(state => ({
+  const { blank } = useSelector(state => ({
     blank: state.blank.validBlank,
     extract: state.extract.extract
   }));
@@ -34,73 +25,25 @@ const MainUser = () => {
     setIsModalOpen(isOpen);
   };
 
-  const { checkBlank, setExtract, setValidBlank } = useAction();
+  const { checkBlank, setValidBlank } = useAction();
 
   const handleCheckBlank = async ({ series, number }) => {
     checkBlank({ series, number });
   };
 
-  const handleAddBlank = async data => {
-    blankService.addBlank(data);
-  };
-
-  const isUpdateFully = true;
-  const isUpdateNotFully = false;
-
   return (
     <Grid.Column className={styles['main-user-wrapper']}>
       <Grid.Row className={styles['main-user-ava-wrapper']}>
-        <Grid.Column className={styles['main-button-wrapper']}>
-          <Modal
-            onClose={() => setIsAddBlank(false)}
-            onOpen={() => setIsAddBlank(true)}
-            open={isAddBlank}
-            trigger={<Button>Додати бланк</Button>}
-          >
-            <AddBlankModal setOpen={setIsAddBlank} addBlank={handleAddBlank} />
-          </Modal>
-        </Grid.Column>
         <Grid.Column>
           <Image
             className={styles['main-user-ava']}
             size="small"
-            src={ADMIN_AVA_URL}
+            src={USER_AVA_URL}
           />
-        </Grid.Column>
-        <Grid.Column className={styles['main-button-wrapper']}>
-          <Button onClick={() => setIsManageBlanksModal(true)}>
-            Змінити бланк
-          </Button>
-          {isManageBlanksModal && (
-            <ManageBlanks
-              onClose={() => setIsManageBlanksModal(false)}
-              isUpdateFully={isUpdateFully}
-            />
-          )}
-          <Button onClick={() => setIsManageBlanksModalForIssue(true)}>
-            Внести дані витрачання
-          </Button>
-          {isManageBlanksModalForIssue && (
-            <ManageBlanks
-              onClose={() => setIsManageBlanksModalForIssue(false)}
-              isUpdateFully={isUpdateNotFully}
-            />
-          )}
         </Grid.Column>
       </Grid.Row>
       <Grid.Row className={styles['main-user-check-blank']}>
         <div className={styles['admin-panel']}>
-          <Modal
-            onClose={() => setIsGetExtract(false)}
-            onOpen={() => setIsGetExtract(true)}
-            open={isGetExtract}
-            trigger={<Button>Отримати витяг</Button>}
-          >
-            <GetExtractModal setOpen={setIsGetExtract} />
-          </Modal>
-          {extract && (
-            <Extract extract={extract} onClose={() => setExtract(null)} />
-          )}
           <Modal
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
