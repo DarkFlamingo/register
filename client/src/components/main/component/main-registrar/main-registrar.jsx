@@ -7,15 +7,14 @@ import {
   CheckBlankModal,
   Modal,
   Button,
-  BlankItem,
   Image,
   AddBlankModal,
   GetExtractModal,
   Extract,
-  ManageBlanks
+  ManageBlanks,
+  BlankCheckResult
 } from 'src/components/common/common';
-import moment from 'moment';
-import { REGISTAR_AVA_URL } from 'src/common/constants/constants';
+import { ADMIN_AVA_URL } from 'src/common/constants/constants';
 import { blank as blankService } from 'src/services/services';
 import styles from './styles.module.scss';
 
@@ -23,7 +22,8 @@ const MainRegistrar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddBlank, setIsAddBlank] = useState(false);
   const [isGetExtract, setIsGetExtract] = useState(false);
-  const [isManageBlanksModal, setIsManageBlanksModal] = React.useState(false);
+  const [isManageBlanksModal, setIsManageBlanksModal] = useState(false);
+  const [isManageBlanksModalForIssue, setIsManageBlanksModalForIssue] = useState(false);
 
   const { blank, extract } = useSelector(state => ({
     blank: state.blank.validBlank,
@@ -34,7 +34,7 @@ const MainRegistrar = () => {
     setIsModalOpen(isOpen);
   };
 
-  const { checkBlank, setExtract } = useAction();
+  const { checkBlank, setExtract, setValidBlank } = useAction();
 
   const handleCheckBlank = async ({ series, number }) => {
     checkBlank({ series, number });
@@ -43,6 +43,9 @@ const MainRegistrar = () => {
   const handleAddBlank = async data => {
     blankService.addBlank(data);
   };
+
+  const isUpdateFully = true;
+  const isUpdateNotFully = false;
 
   return (
     <Grid.Column className={styles['main-user-wrapper']}>
@@ -61,7 +64,7 @@ const MainRegistrar = () => {
           <Image
             className={styles['main-user-ava']}
             size="small"
-            src={REGISTAR_AVA_URL}
+            src={ADMIN_AVA_URL}
           />
         </Grid.Column>
         <Grid.Column className={styles['main-button-wrapper']}>
@@ -69,7 +72,19 @@ const MainRegistrar = () => {
             Змінити бланк
           </Button>
           {isManageBlanksModal && (
-            <ManageBlanks onClose={() => setIsManageBlanksModal(false)} />
+            <ManageBlanks
+              onClose={() => setIsManageBlanksModal(false)}
+              isUpdateFully={isUpdateFully}
+            />
+          )}
+          <Button onClick={() => setIsManageBlanksModalForIssue(true)}>
+            Внести дані витрачання
+          </Button>
+          {isManageBlanksModalForIssue && (
+            <ManageBlanks
+              onClose={() => setIsManageBlanksModalForIssue(false)}
+              isUpdateFully={isUpdateNotFully}
+            />
           )}
         </Grid.Column>
       </Grid.Row>
@@ -96,19 +111,11 @@ const MainRegistrar = () => {
           </Modal>
         </div>
         <div className={styles['blank-wrapper']}>
-          {blank && <BlankItem blank={blank} />}
-          {blank === null && (
-            <div className={styles['blank-check-false']}>
-              Інформація про витрачання бланка в Єдиному реєстрі спеціальних
-              бланків нотаріальних документів відсутня
-            </div>
-          )}
-          {(blank || blank === null) && (
-            <div>
-              {`Дата та час перевірки бланка: ${moment().format(
-                'MMMM Do YYYY, h:mm:ss'
-              )}`}
-            </div>
+          {blank !== false && (
+            <BlankCheckResult
+              blank={blank}
+              onClose={() => setValidBlank(false)}
+            />
           )}
         </div>
       </Grid.Row>

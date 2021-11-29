@@ -39,7 +39,9 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
 
   return (
     <div className={styles['update-wrapper']}>
-      <Modal.Header>Внести дані витрачання</Modal.Header>
+      <Modal.Header>
+        <h3>Внести дані витрачання</h3>
+      </Modal.Header>
       <Modal.Content image>
         <Modal.Description>
           <Form name="checkBlankForm" size="large">

@@ -18,10 +18,10 @@
 
 .btn-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   margin: 0px 10px 0px 5px !important;
 
-  button {
+  button:last-child {
     margin-left: 20px !important;
   }
 }
