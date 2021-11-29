@@ -14,7 +14,7 @@ import {
   ManageBlanks,
   BlankCheckResult
 } from 'src/components/common/common';
-import { ADMIN_AVA_URL } from 'src/common/constants/constants';
+import { REGISTAR_AVA_URL } from 'src/common/constants/constants';
 import { blank as blankService } from 'src/services/services';
 import styles from './styles.module.scss';
 
@@ -64,7 +64,7 @@ const MainRegistrar = () => {
           <Image
             className={styles['main-user-ava']}
             size="small"
-            src={ADMIN_AVA_URL}
+            src={REGISTAR_AVA_URL}
           />
         </Grid.Column>
         <Grid.Column className={styles['main-button-wrapper']}>

@@ -7,7 +7,7 @@ const initExtract = (Router, services) => {
 
   router.post(
     ExtractApiPath.ROOT,
-    checkRoles([Role.Admin]),
+    checkRoles([Role.Admin, Role.Registrar]),
     (req, res, next) => {
       const { code, name, series, number, ...data } = req.body;
       extractService
