@@ -137,31 +137,32 @@ const LogsModal = ({ onClose }) => {
               />
             </th>
           </tr>
-          {logs.map(el => (
-            <tr key={el.id}>
-              <td>{el.actionType}</td>
-              <td>{el.date}</td>
-              <td>{el.user.passport.name}</td>
-              <td>{el.user.passport.surname}</td>
-              <td>{el.blank.series}</td>
-              <td>{el.blank.number}</td>
-              {el.blank.code && (
-                <>
-                  <td>{el.blank.code.code}</td>
-                  <td>
-                    {el.blank.code.name.length > 30
-                      ? `${el.blank.code.name.slice(0, 30)}...`
-                      : el.blank.code.name}
-                  </td>
-                </>
-              )}
-              {!el.blank.code && (
-                <>
-                  <td>Не витрачений</td>
-                </>
-              )}
-            </tr>
-          ))}
+          {logs &&
+            logs.map(el => (
+              <tr key={el.id}>
+                <td>{el.actionType}</td>
+                <td>{el.date}</td>
+                <td>{el.user.passport.name}</td>
+                <td>{el.user.passport.surname}</td>
+                <td>{el.blank.series}</td>
+                <td>{el.blank.number}</td>
+                {el.blank.code && (
+                  <>
+                    <td>{el.blank.code.code}</td>
+                    <td>
+                      {el.blank.code.name.length > 30
+                        ? `${el.blank.code.name.slice(0, 30)}...`
+                        : el.blank.code.name}
+                    </td>
+                  </>
+                )}
+                {!el.blank.code && (
+                  <>
+                    <td>Не витрачений</td>
+                  </>
+                )}
+              </tr>
+            ))}
         </table>
         <Button onClick={onClose}>Вихід</Button>
       </div>

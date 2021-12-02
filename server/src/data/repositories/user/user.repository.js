@@ -1,10 +1,11 @@
 import { Abstract } from '../abstract/abstract.repository';
 
 class User extends Abstract {
-  constructor({ userModel, positionModel, organizationModel }) {
+  constructor({ userModel, positionModel, organizationModel, passportModel }) {
     super(userModel);
     this._organizationModel = organizationModel;
     this._positionModel = positionModel;
+    this._passportModel = passportModel;
   }
 
   addUser(user) {
@@ -21,7 +22,19 @@ class User extends Abstract {
 
   getAllByRole(role) {
     return this.model.findAll({
-      where: { role }
+      where: { role },
+      include: [
+        {
+          model: this._organizationModel
+        },
+        {
+          model: this._positionModel
+        },
+        {
+          model: this._passportModel
+        }
+      ],
+      order: [['login', 'ASC']]
     });
   }
 

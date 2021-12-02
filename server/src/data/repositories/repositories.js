@@ -24,7 +24,8 @@ import { User } from './user/user.repository';
 const user = new User({
   userModel: UserModel,
   organizationModel: OrganizationModel,
-  positionModel: PositionModel
+  positionModel: PositionModel,
+  passportModel: PassportModel
 });
 
 const authorities = new Authorities({
