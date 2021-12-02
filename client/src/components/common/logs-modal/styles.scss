@@ -1,4 +1,4 @@
-.modal-custom {
+.modal-custom-logs {
   display: block;
   position: fixed;
   z-index: 1;
@@ -21,35 +21,37 @@
         padding: 5px;
         background: #efefef;
         border: 1px solid #dddddd;
+        width: 300px;
       }
 
       td {
         border: 1px solid #dddddd;
         padding: 5px;
+        width: 300px;
       }
     }
   }
-}
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 30px;
-  border: 2px solid rgb(82, 82, 82);
-  border-radius: 10px;
-  width: 45vw;
-}
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 30px;
+    border: 2px solid rgb(82, 82, 82);
+    border-radius: 10px;
+    width: 80vw;
+  }
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
