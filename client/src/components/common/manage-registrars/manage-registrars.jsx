@@ -6,7 +6,7 @@ import { registrar } from 'src/services/services';
 import styles from './styles.module.scss';
 
 const ManageRegistrarsModal = ({ onClose }) => {
-  const [registrars, setResistars] = React.useState();
+  const [registrars, setResistars] = React.useState([]);
   const [filter, setFilter] = React.useState({
     login: '',
     name: '',
