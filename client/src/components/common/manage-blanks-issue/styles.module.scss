@@ -1,4 +1,4 @@
-.modal-custom-registrar {
+.modal-custom-blanks-issue {
   display: block;
   position: fixed;
   z-index: 1;
@@ -15,9 +15,9 @@
     margin: 15% auto;
     padding: 30px;
     border-radius: 10px;
-    width: 80vw;
+    width: 40vw;
 
-    .list {
+    .list-blanks {
       table {
         width: 100%;
         margin-bottom: 20px;
@@ -29,21 +29,19 @@
             padding: 5px;
             background: #efefef;
             border: 1px solid #dddddd;
-            width: 300px;
+            button {
+              width: 200px !important;
+              margin: 0 !important;
+            }
           }
 
           td {
             border: 1px solid #dddddd;
             padding: 5px;
-            width: 300px;
-            & .expanded {
-              width: 500px;
-            }
             button {
               width: 200px !important;
               margin: 0 !important;
             }
-            
             .button {
               margin-left: 20px;
               color: white;
@@ -55,6 +53,11 @@
 
               &-unblocked {
                 background-color: rgba(red, 0.3);
+                color: white;
+              }
+
+              &-edit {
+                background-color: rgba(rgb(0, 132, 255), 0.3);
                 color: white;
               }
             }
@@ -76,5 +79,11 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  .update-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

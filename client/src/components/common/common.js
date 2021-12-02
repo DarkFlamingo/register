@@ -29,6 +29,7 @@ import GetExtractModal from './get-extract-modal/get-extract-modal';
 import Extract from './extract/extract';
 import LogsModal from './logs-modal/logs-modal';
 import ManageBlanks from './manage-blanks/manage-blanks';
+import ManageBlanksIssue from './manage-blanks-issue/manage-blanks-issue';
 import BlankCheckResult from './blank-check-result/blank-check-result';
 import SetBlankIssueCode from './set-issue-code/set-issue-code';
 
@@ -63,5 +64,6 @@ export {
   LogsModal,
   ManageBlanks,
   BlankCheckResult,
-  SetBlankIssueCode
+  SetBlankIssueCode,
+  ManageBlanksIssue
 };

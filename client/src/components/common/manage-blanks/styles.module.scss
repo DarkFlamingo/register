@@ -1,4 +1,4 @@
-.modal {
+.modal-custom-blanks {
   display: block;
   position: fixed;
   z-index: 1;
@@ -9,76 +9,79 @@
   overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.8);
-}
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 30px;
-  border-radius: 10px;
-  width: 40vw;
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 60vw;
 
-  .list-blanks {
-    table {
-      width: 100%;
-      margin-bottom: 20px;
-      border: 1px solid #dddddd;
-      border-collapse: collapse;
-      tr {
-        th {
-          font-weight: bold;
-          padding: 5px;
-          background: #efefef;
-          border: 1px solid #dddddd;
-        }
-
-        td {
-          border: 1px solid #dddddd;
-          padding: 5px;
-          button {
-            width: 200px !important
+    .list-blanks {
+      table {
+        width: 100%;
+        margin-bottom: 20px;
+        border: 1px solid #dddddd;
+        border-collapse: collapse;
+        tr {
+          th {
+            font-weight: bold;
+            padding: 5px;
+            background: #efefef;
+            border: 1px solid #dddddd;
+            width: 300px;
           }
-          .button {
-            margin-left: 20px;
-            color: white;
 
-            &-blocked {
-              background-color: rgba(green, 0.3);
-              color: white;
+          td {
+            border: 1px solid #dddddd;
+            padding: 5px;
+            width: 300px;
+            button {
+              width: 200px !important;
+              margin: 0 !important;
             }
-
-            &-unblocked {
-              background-color: rgba(red, 0.3);
+            .button {
+              margin-left: 20px;
               color: white;
-            }
 
-            &-edit {
-              background-color: rgba(rgb(0, 132, 255), 0.3);
-              color: white;
+              &-blocked {
+                background-color: rgba(green, 0.3);
+                color: white;
+              }
+
+              &-unblocked {
+                background-color: rgba(red, 0.3);
+                color: white;
+              }
+
+              &-edit {
+                background-color: rgba(rgb(0, 132, 255), 0.3);
+                color: white;
+              }
             }
           }
         }
       }
     }
   }
-}
 
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 
-.update-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .update-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

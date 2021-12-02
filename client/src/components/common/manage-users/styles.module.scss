@@ -36,6 +36,11 @@
             border: 1px solid #dddddd;
             padding: 5px;
             width: 300px;
+            button {
+              width: 200px !important;
+              margin: 0 !important;
+            }
+            
             .button {
               margin-left: 20px;
               color: white;

@@ -12,7 +12,8 @@ import {
   GetExtractModal,
   Extract,
   ManageBlanks,
-  BlankCheckResult
+  BlankCheckResult,
+  ManageBlanksIssue
 } from 'src/components/common/common';
 import { REGISTAR_AVA_URL } from 'src/common/constants/constants';
 import { blank as blankService } from 'src/services/services';
@@ -44,9 +45,6 @@ const MainRegistrar = () => {
     blankService.addBlank(data);
   };
 
-  const isUpdateFully = true;
-  const isUpdateNotFully = false;
-
   return (
     <Grid.Column className={styles['main-user-wrapper']}>
       <Grid.Row className={styles['main-user-ava-wrapper']}>
@@ -74,16 +72,14 @@ const MainRegistrar = () => {
           {isManageBlanksModal && (
             <ManageBlanks
               onClose={() => setIsManageBlanksModal(false)}
-              isUpdateFully={isUpdateFully}
             />
           )}
           <Button onClick={() => setIsManageBlanksModalForIssue(true)}>
             Внести дані витрачання
           </Button>
           {isManageBlanksModalForIssue && (
-            <ManageBlanks
+            <ManageBlanksIssue
               onClose={() => setIsManageBlanksModalForIssue(false)}
-              isUpdateFully={isUpdateNotFully}
             />
           )}
         </Grid.Column>

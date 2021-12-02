@@ -7,15 +7,14 @@ import UpdateBlankModal from '../update-blank-modal/update-blank-modal';
 import SetBlankIssueCode from '../set-issue-code/set-issue-code';
 import styles from './styles.module.scss';
 
-const ManageBlanks = ({ onClose, isUpdateFully }) => {
+const ManageBlanksIssue = ({ onClose }) => {
   const [blank, setBlank] = React.useState(null);
 
   const [blanks, setBlanks] = React.useState([]);
   const [filter, setFilter] = React.useState({
     series: '',
     number: '',
-    code: '',
-    codeName: ''
+    isIssueShow: true
   });
 
   const changeFilter = (key, value) => {
@@ -32,21 +31,13 @@ const ManageBlanks = ({ onClose, isUpdateFully }) => {
         ? blank.number.toString().includes(filter.number)
         : true;
 
-      const codeFiltered = !filter.code
+      const issueFiltered = filter.isIssueShow
         ? true
         : blank.code
-        ? blank.code.code.toString().includes(filter.code)
-        : false;
+        ? false
+        : true;
 
-      const codeNameFiltered = !filter.codeName
-        ? true
-        : blank.code
-        ? blank.code.name.includes(filter.codeName)
-        : false;
-
-      return (
-        seriesFiltered && numberFiltered && codeFiltered && codeNameFiltered
-      );
+      return seriesFiltered && numberFiltered && issueFiltered;
     });
   };
 
@@ -69,13 +60,13 @@ const ManageBlanks = ({ onClose, isUpdateFully }) => {
   }, [filter]);
 
   return (
-    <div className={styles['modal-custom-blanks']}>
+    <div className={styles['modal-custom-blanks-issue']}>
       <div className={styles['modal-content']}>
         <List className={styles.list} divided relaxed>
           <div className={styles['list-blanks']}>
             <div>
               {blank ? (
-                <UpdateBlankModal
+                <SetBlankIssueCode
                   setOpen={setBlank}
                   updateBlank={handleUpdateBlank}
                   blank={blank}
@@ -84,14 +75,11 @@ const ManageBlanks = ({ onClose, isUpdateFully }) => {
                 <table>
                   <tbody>
                     <tr>
-                      <th>Дія</th>
                       <th>Серія</th>
                       <th>Номер</th>
-                      <th>Код витрачання</th>
-                      <th>Причина витрачання</th>
+                      <th>Дія</th>
                     </tr>
                     <tr>
-                      <th></th>
                       <th>
                         <Form.Input
                           fluid
@@ -105,7 +93,6 @@ const ManageBlanks = ({ onClose, isUpdateFully }) => {
                       <th>
                         <Form.Input
                           fluid
-                          type="number"
                           placeholder="Номер"
                           onChange={ev =>
                             changeFilter('number', ev.target.value)
@@ -114,45 +101,37 @@ const ManageBlanks = ({ onClose, isUpdateFully }) => {
                         />
                       </th>
                       <th>
-                        <Form.Input
-                          fluid
-                          type="number"
-                          placeholder="Код"
-                          onChange={ev => changeFilter('code', ev.target.value)}
-                          value={filter.code}
-                        />
-                      </th>
-                      <th>
-                        <Form.Input
-                          fluid
-                          placeholder="Причина"
-                          onChange={ev =>
-                            changeFilter('codeName', ev.target.value)
-                          }
-                          value={filter.codeName}
-                        />
+                        {filter.isIssueShow ? (
+                          <Button
+                            onClick={() => changeFilter('isIssueShow', false)}
+                          >
+                            Приховати витрачені
+                          </Button>
+                        ) : (
+                          <Button
+                            onClick={() => changeFilter('isIssueShow', true)}
+                          >
+                            Показати витрачені
+                          </Button>
+                        )}
                       </th>
                     </tr>
                     {blanks.map(el => (
                       <tr key={el.id}>
-                        <td>
-                          <Button
-                            className={styles['button-edit']}
-                            onClick={() => setBlank(el)}
-                          >
-                            Редагувати
-                          </Button>
-                        </td>
                         <td>{el.series}</td>
                         <td>{el.number}</td>
-                        {el.code ? (
-                          <>
-                            <td>{el.code.code}</td>
-                            <td>{el.code.name}</td>
-                          </>
-                        ) : (
-                          <td>Бланк не витрачений</td>
-                        )}
+                        <td>
+                          {el.code ? (
+                            'Бланк уже витрачений'
+                          ) : (
+                            <Button
+                              className={styles['button-edit']}
+                              onClick={() => setBlank(el)}
+                            >
+                              Внести дані про витрачання
+                            </Button>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -167,9 +146,8 @@ const ManageBlanks = ({ onClose, isUpdateFully }) => {
   );
 };
 
-ManageBlanks.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  isUpdateFully: PropTypes.bool.isRequired
+ManageBlanksIssue.propTypes = {
+  onClose: PropTypes.func.isRequired
 };
 
-export default ManageBlanks;
+export default ManageBlanksIssue;
