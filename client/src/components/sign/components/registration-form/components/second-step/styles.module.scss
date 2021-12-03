@@ -16,3 +16,18 @@
     width: 180px !important;
   }
 }
+
+.input-wrapper {
+  display: flex;
+}
+
+.input-column {
+  width: 500px;
+  margin: 20px;
+}
+
+.input-container {
+  text-align: start;
+  margin: 15px 0;
+  color: grey;
+}

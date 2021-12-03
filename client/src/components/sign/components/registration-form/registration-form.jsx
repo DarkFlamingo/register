@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { AppRoute } from 'src/common/enums/enums';
 import { Form, Message, NavLink } from 'src/components/common/common';
-import { FirstStep, SecondStep } from './components/components';
+import { SecondStep } from './components/components';
 
 const RegistrationForm = ({ onRegister }) => {
   const [login, setLogin] = React.useState('');
@@ -45,7 +45,6 @@ const RegistrationForm = ({ onRegister }) => {
   const [isUnitAdressValid, setUnitAdressValid] = React.useState(true);
 
   const [isLoading, setLoading] = React.useState(false);
-  const [isFirstPage, setIsFirstPage] = React.useState(true);
 
   const loginChanged = value => {
     setLogin(value);
@@ -69,12 +68,12 @@ const RegistrationForm = ({ onRegister }) => {
 
   const patronymicChanged = value => {
     setPatronymic(value);
-    setSurnameValid(true);
+    setPatronymicValid(true);
   };
 
   const seriesChanged = value => {
     setSeries(value);
-    setSurnameValid(true);
+    setSeriesValid(true);
   };
 
   const dateOfExpiryChanged = value => {
@@ -89,12 +88,14 @@ const RegistrationForm = ({ onRegister }) => {
 
   const documentNumberChanged = value => {
     setDocumentNumber(value);
-    setDocumentNumberValid(true);
+    const regExp = new RegExp('^[0-9]+$');
+    setDocumentNumberValid(regExp.test(value));
   };
 
   const RNTRCChanged = value => {
     setRNTRC(value);
-    setRNTRCValid(true);
+    const regExp = new RegExp('^[0-9]+$');
+    setRNTRCValid(regExp.test(value) && value.length === 10);
   };
 
   const unitCodeChanged = value => {
@@ -119,6 +120,9 @@ const RegistrationForm = ({ onRegister }) => {
     }
     setLoading(true);
     try {
+      const dateForTransform = new Date(dateOfIssue);
+      const dateOfExpiryFinal = new Date(dateOfIssue);
+      dateOfExpiryFinal.setFullYear(dateForTransform.getFullYear() + 10);
       await onRegister({
         login,
         password,
@@ -126,7 +130,7 @@ const RegistrationForm = ({ onRegister }) => {
         surname,
         patronymic,
         series,
-        dateOfExpiry,
+        dateOfExpiry: dateOfExpiryFinal,
         dateOfIssue,
         documentNumber,
         RNTRC,
@@ -140,80 +144,65 @@ const RegistrationForm = ({ onRegister }) => {
     }
   };
 
-  const nextStepClick = () => {
-    setIsFirstPage(false);
-  };
-
-  const previousStepClick = () => {
-    setIsFirstPage(true);
-  };
-
   return (
     <>
-      <Form name="registrationForm" size="large" onSubmit={register}>
-        {isFirstPage ? (
-          <FirstStep
-            loginChanged={loginChanged}
-            isLoginValid={isLoginValid}
-            login={login}
-            isNameValid={isNameValid}
-            nameChanged={nameChanged}
-            setNameValid={setNameValid}
-            name={name}
-            passwordChanged={passwordChanged}
-            isPasswordValid={isPasswordValid}
-            setPasswordValid={setPasswordValid}
-            password={password}
-            isLoading={isLoading}
-            setLoginValid={setLoginValid}
-            nextStepClick={nextStepClick}
-          />
-        ) : (
-          <SecondStep
-            isLoading={isLoading}
-            previousStepClick={previousStepClick}
-            surname={surname}
-            surnameChanged={surnameChanged}
-            isSurnameValid={isSurnameValid}
-            setSurnameValid={setSurnameValid}
-            patronymic={patronymic}
-            patronymicChanged={patronymicChanged}
-            isPatronymicValid={isPatronymicValid}
-            setPatronymicValid={setPatronymicValid}
-            series={series}
-            seriesChanged={seriesChanged}
-            isSeriesValid={isSeriesValid}
-            setSeriesValid={setSeriesValid}
-            dateOfExpiry={dateOfExpiry}
-            dateOfExpiryChanged={dateOfExpiryChanged}
-            isDateOfExpiryValid={isDateOfExpiryValid}
-            setDateOfExpiryValid={setDateOfExpiryValid}
-            documentNumber={documentNumber}
-            documentNumberChanged={documentNumberChanged}
-            isDocumentNumberValid={isDocumentNumberValid}
-            setDocumentNumberValid={setDocumentNumberValid}
-            RNTRC={RNTRC}
-            RNTRCChanged={RNTRCChanged}
-            isRNTRCeValid={isRNTRCeValid}
-            setRNTRCValid={setRNTRCValid}
-            unitCode={unitCode}
-            unitCodeChanged={unitCodeChanged}
-            isUnitCodeValid={isUnitCodeValid}
-            setUnitCodeValid={setUnitCodeValid}
-            unitName={unitName}
-            unitNameChanged={unitNameChanged}
-            isUnitNameValid={isUnitNameValid}
-            setUnitNameValid={setUnitNameValid}
-            dateOfIssue={dateOfIssue}
-            dateOfIssueChanged={dateOfIssueChanged}
-            isDateOfIssueValid={isDateOfIssueValid}
-            setDateOfIssueValid={setDateOfIssueValid}
-            unitAdress={unitAdress}
-            unitAdressChanged={unitAdressChanged}
-            isUnitAdressValid={isUnitAdressValid}
-            setUnitAdressValid={setUnitAdressValid}
-          />
-        )}
+      <Form name="registrationForm" size="large">
+        <SecondStep
+          register={register}
+          isLoading={isLoading}
+          surname={surname}
+          surnameChanged={surnameChanged}
+          isSurnameValid={isSurnameValid}
+          setSurnameValid={setSurnameValid}
+          patronymic={patronymic}
+          patronymicChanged={patronymicChanged}
+          isPatronymicValid={isPatronymicValid}
+          setPatronymicValid={setPatronymicValid}
+          series={series}
+          seriesChanged={seriesChanged}
+          isSeriesValid={isSeriesValid}
+          setSeriesValid={setSeriesValid}
+          dateOfExpiry={dateOfExpiry}
+          dateOfExpiryChanged={dateOfExpiryChanged}
+          isDateOfExpiryValid={isDateOfExpiryValid}
+          setDateOfExpiryValid={setDateOfExpiryValid}
+          documentNumber={documentNumber}
+          documentNumberChanged={documentNumberChanged}
+          isDocumentNumberValid={isDocumentNumberValid}
+          setDocumentNumberValid={setDocumentNumberValid}
+          RNTRC={RNTRC}
+          RNTRCChanged={RNTRCChanged}
+          isRNTRCeValid={isRNTRCeValid}
+          setRNTRCValid={setRNTRCValid}
+          unitCode={unitCode}
+          unitCodeChanged={unitCodeChanged}
+          isUnitCodeValid={isUnitCodeValid}
+          setUnitCodeValid={setUnitCodeValid}
+          unitName={unitName}
+          unitNameChanged={unitNameChanged}
+          isUnitNameValid={isUnitNameValid}
+          setUnitNameValid={setUnitNameValid}
+          dateOfIssue={dateOfIssue}
+          dateOfIssueChanged={dateOfIssueChanged}
+          isDateOfIssueValid={isDateOfIssueValid}
+          setDateOfIssueValid={setDateOfIssueValid}
+          unitAdress={unitAdress}
+          unitAdressChanged={unitAdressChanged}
+          isUnitAdressValid={isUnitAdressValid}
+          setUnitAdressValid={setUnitAdressValid}
+          loginChanged={loginChanged}
+          isLoginValid={isLoginValid}
+          login={login}
+          isNameValid={isNameValid}
+          nameChanged={nameChanged}
+          setNameValid={setNameValid}
+          name={name}
+          passwordChanged={passwordChanged}
+          isPasswordValid={isPasswordValid}
+          setPasswordValid={setPasswordValid}
+          password={password}
+          setLoginValid={setLoginValid}
+        />
       </Form>
       <Message>
         Вже з нами?
