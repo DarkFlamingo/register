@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { UNIT_ADDRESS, UNIT_NAME } from 'src/common/constants/constants';
 import { AppRoute } from 'src/common/enums/enums';
 import { Form, Message, NavLink } from 'src/components/common/common';
 import { SecondStep } from './components/components';
@@ -37,12 +38,6 @@ const RegistrationForm = ({ onRegister }) => {
 
   const [unitCode, setUnitCode] = React.useState('');
   const [isUnitCodeValid, setUnitCodeValid] = React.useState(true);
-
-  const [unitName, setUnitName] = React.useState('');
-  const [isUnitNameValid, setUnitNameValid] = React.useState(true);
-
-  const [unitAdress, setUnitAdress] = React.useState('');
-  const [isUnitAdressValid, setUnitAdressValid] = React.useState(true);
 
   const [isLoading, setLoading] = React.useState(false);
 
@@ -103,16 +98,6 @@ const RegistrationForm = ({ onRegister }) => {
     setUnitCodeValid(true);
   };
 
-  const unitNameChanged = value => {
-    setUnitName(value);
-    setUnitNameValid(true);
-  };
-
-  const unitAdressChanged = value => {
-    setUnitAdress(value);
-    setUnitAdressValid(true);
-  };
-
   const register = async () => {
     const isValid = isLoginValid && isNameValid && isPasswordValid;
     if (!isValid || isLoading) {
@@ -123,6 +108,10 @@ const RegistrationForm = ({ onRegister }) => {
       const dateForTransform = new Date(dateOfIssue);
       const dateOfExpiryFinal = new Date(dateOfIssue);
       dateOfExpiryFinal.setFullYear(dateForTransform.getFullYear() + 10);
+
+      const unitAddress = UNIT_ADDRESS[unitCode];
+      const unitName = UNIT_NAME[unitCode];
+
       await onRegister({
         login,
         password,
@@ -136,7 +125,7 @@ const RegistrationForm = ({ onRegister }) => {
         RNTRC,
         unitCode,
         unitName,
-        unitAddress: unitAdress,
+        unitAddress,
         isActive: true
       });
     } catch {
@@ -178,18 +167,10 @@ const RegistrationForm = ({ onRegister }) => {
           unitCodeChanged={unitCodeChanged}
           isUnitCodeValid={isUnitCodeValid}
           setUnitCodeValid={setUnitCodeValid}
-          unitName={unitName}
-          unitNameChanged={unitNameChanged}
-          isUnitNameValid={isUnitNameValid}
-          setUnitNameValid={setUnitNameValid}
           dateOfIssue={dateOfIssue}
           dateOfIssueChanged={dateOfIssueChanged}
           isDateOfIssueValid={isDateOfIssueValid}
           setDateOfIssueValid={setDateOfIssueValid}
-          unitAdress={unitAdress}
-          unitAdressChanged={unitAdressChanged}
-          isUnitAdressValid={isUnitAdressValid}
-          setUnitAdressValid={setUnitAdressValid}
           loginChanged={loginChanged}
           isLoginValid={isLoginValid}
           login={login}
