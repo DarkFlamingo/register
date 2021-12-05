@@ -30,11 +30,13 @@ const init = orm => {
       },
       documentNumber: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
       },
       RNTRC: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
       }
     },
     { timestamps: false, createdAt: false, updatedAt: false }

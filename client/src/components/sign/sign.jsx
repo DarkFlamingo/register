@@ -17,7 +17,7 @@ const Login = () => {
   );
 
   const handleRegister = React.useCallback(
-    registerPayload => dispatch(profileActionCreator.register(registerPayload)),
+    registerPayload => dispatch(profileActionCreator.login(registerPayload)),
     [dispatch]
   );
 

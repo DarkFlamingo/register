@@ -7,6 +7,7 @@ import { Button, Form, Segment, Select } from 'src/components/common/common';
 import styles from './styles.module.scss';
 
 const FirstStep = ({
+  showError,
   register,
   isLoading,
   surname,
@@ -183,11 +184,17 @@ const FirstStep = ({
           </div>
           <div className={styles['input-container']}>
             <label>Код органа, що видав</label>
-            <Select options={getOptions(UNIT_CODE)} onChange={obj => unitCodeChanged(obj.value)}/>
+            <Select
+              options={getOptions(UNIT_CODE)}
+              onChange={obj => unitCodeChanged(obj.value)}
+            />
           </div>
         </div>
       </div>
       <div className={styles['btn-wrapper']}>
+        {showError && (
+          <span>Перевірте дані адже користувач з такими даними уже існує</span>
+        )}
         <Button
           type={ButtonType.SUBMIT}
           color={ButtonColor.TEAL}
@@ -268,7 +275,8 @@ FirstStep.propTypes = {
   setPasswordValid: PropTypes.func.isRequired,
   password: PropTypes.string.isRequired,
   setLoginValid: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  showError: PropTypes.bool.isRequired
 };
 
 export default FirstStep;

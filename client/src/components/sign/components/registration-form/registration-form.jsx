@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { UNIT_ADDRESS, UNIT_NAME } from 'src/common/constants/constants';
 import { AppRoute } from 'src/common/enums/enums';
 import { Form, Message, NavLink } from 'src/components/common/common';
+import { auth as authService } from 'src/services/services';
 import { SecondStep } from './components/components';
 
 const RegistrationForm = ({ onRegister }) => {
   const [login, setLogin] = React.useState('');
   const [isLoginValid, setLoginValid] = React.useState(true);
+
+  const [showError, setShowError] = React.useState(false);
 
   const [password, setPassword] = React.useState('');
   const [isPasswordValid, setPasswordValid] = React.useState(true);
@@ -44,58 +47,69 @@ const RegistrationForm = ({ onRegister }) => {
   const loginChanged = value => {
     setLogin(value);
     setLoginValid(true);
+    setShowError(false);
   };
 
   const nameChanged = value => {
     setName(value);
     setNameValid(true);
+    setShowError(false);
   };
 
   const passwordChanged = value => {
     setPassword(value);
     setPasswordValid(true);
+    setShowError(false);
   };
 
   const surnameChanged = value => {
     setSurname(value);
     setSurnameValid(true);
+    setShowError(false);
   };
 
   const patronymicChanged = value => {
     setPatronymic(value);
     setPatronymicValid(true);
+    setShowError(false);
   };
 
   const seriesChanged = value => {
     setSeries(value);
     setSeriesValid(true);
+    setShowError(false);
   };
 
   const dateOfExpiryChanged = value => {
     setDateOfExpiry(value);
     setDateOfExpiryValid(true);
+    setShowError(false);
   };
 
   const dateOfIssueChanged = value => {
     setDateOfIssue(value);
     setDateOfIssueValid(true);
+    setShowError(false);
   };
 
   const documentNumberChanged = value => {
     setDocumentNumber(value);
     const regExp = new RegExp('^[0-9]+$');
     setDocumentNumberValid(regExp.test(value));
+    setShowError(false);
   };
 
   const RNTRCChanged = value => {
     setRNTRC(value);
     const regExp = new RegExp('^[0-9]+$');
     setRNTRCValid(regExp.test(value) && value.length === 10);
+    setShowError(false);
   };
 
   const unitCodeChanged = value => {
     setUnitCode(value);
     setUnitCodeValid(true);
+    setShowError(false);
   };
 
   const register = async () => {
@@ -112,22 +126,37 @@ const RegistrationForm = ({ onRegister }) => {
       const unitAddress = UNIT_ADDRESS[unitCode];
       const unitName = UNIT_NAME[unitCode];
 
-      await onRegister({
-        login,
-        password,
-        name,
-        surname,
-        patronymic,
-        series,
-        dateOfExpiry: dateOfExpiryFinal,
-        dateOfIssue,
-        documentNumber,
-        RNTRC,
-        unitCode,
-        unitName,
-        unitAddress,
-        isActive: true
-      });
+      try {
+        const data = await authService.registration({
+          login,
+          password,
+          name,
+          surname,
+          patronymic,
+          series,
+          dateOfExpiry: dateOfExpiryFinal,
+          dateOfIssue,
+          documentNumber,
+          RNTRC,
+          unitCode,
+          unitName,
+          unitAddress,
+          isActive: true
+        });
+
+        if (data.status >= 400 && data.status < 500) {
+          setShowError(true);
+          setLoading(false);
+          return;
+        }
+
+        await onRegister({
+          login,
+          password
+        });
+      } catch (err) {
+        console.log(err);
+      }
     } catch {
       setLoading(false);
     }
@@ -183,6 +212,7 @@ const RegistrationForm = ({ onRegister }) => {
           setPasswordValid={setPasswordValid}
           password={password}
           setLoginValid={setLoginValid}
+          showError={showError}
         />
       </Form>
       <Message>
