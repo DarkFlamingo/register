@@ -49,7 +49,11 @@ const FirstStep = ({
   isPasswordValid,
   setPasswordValid,
   password,
-  setLoginValid
+  setLoginValid,
+  isDateOfBirthdayValid,
+  dateOfBirthdayChanged,
+  dateOfBirthdayValid,
+  dateOfBirthday
 }) => {
   const getOptions = arrayOfStrings =>
     arrayOfStrings.map(str => ({ label: str, value: str }));
@@ -74,20 +78,6 @@ const FirstStep = ({
             />
           </div>
           <div className={styles['input-container']}>
-            <label>{"І'мя"}</label>
-            <Form.Input
-              fluid
-              icon="user"
-              iconPosition="left"
-              placeholder="І'мя"
-              type="text"
-              error={!isNameValid}
-              onChange={ev => nameChanged(ev.target.value)}
-              onBlur={() => setNameValid(Boolean(name))}
-              value={name}
-            />
-          </div>
-          <div className={styles['input-container']}>
             <label>Пароль</label>
             <Form.Input
               fluid
@@ -99,6 +89,20 @@ const FirstStep = ({
               error={!isPasswordValid}
               onBlur={() => setPasswordValid(Boolean(password))}
               value={password}
+            />
+          </div>
+          <div className={styles['input-container']}>
+            <label>{"І'мя"}</label>
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="І'мя"
+              type="text"
+              error={!isNameValid}
+              onChange={ev => nameChanged(ev.target.value)}
+              onBlur={() => setNameValid(Boolean(name))}
+              value={name}
             />
           </div>
           <div className={styles['input-container']}>
@@ -125,6 +129,19 @@ const FirstStep = ({
               value={patronymic}
             />
           </div>
+          <div className={styles['input-container']}>
+            <label>Дата народження</label>
+            <Form.Input
+              fluid
+              iconPosition="left"
+              type="date"
+              placeholder="Дата народження"
+              error={!isDateOfBirthdayValid}
+              onChange={ev => dateOfBirthdayChanged(ev.target.value)}
+              onBlur={() => dateOfBirthdayValid(Boolean(dateOfBirthday))}
+              value={dateOfBirthday}
+            />
+          </div>
         </div>
         <div className={styles['input-column']}>
           <div className={styles['input-container']}>
@@ -135,7 +152,12 @@ const FirstStep = ({
               placeholder="Серія"
               error={!isSeriesValid}
               onChange={ev => seriesChanged(ev.target.value)}
-              onBlur={() => setSeriesValid(true)}
+              onBlur={() => {
+                const regExp = new RegExp('^[а-я]', 'i');
+                if (series)
+                  setSeriesValid(regExp.test(series) && series.length === 2);
+                else setSeriesValid(true);
+              }}
               value={series}
             />
           </div>
@@ -162,17 +184,19 @@ const FirstStep = ({
               onChange={ev => documentNumberChanged(ev.target.value)}
               onBlur={() => {
                 const regExp = new RegExp('^[0-9]+$');
-                setDocumentNumberValid(regExp.test(documentNumber));
+                setDocumentNumberValid(
+                  regExp.test(documentNumber) && documentNumber.length === 9
+                );
               }}
               value={documentNumber}
             />
           </div>
           <div className={styles['input-container']}>
-            <label>RNTRC</label>
+            <label>РНОКПП</label>
             <Form.Input
               fluid
               iconPosition="left"
-              placeholder="RNTRC"
+              placeholder="РНОКПП"
               error={!isRNTRCeValid}
               onChange={ev => RNTRCChanged(ev.target.value)}
               onBlur={() => {
@@ -214,17 +238,19 @@ const FirstStep = ({
               documentNumber &&
               RNTRC &&
               unitCode &&
+              dateOfBirthday &&
+              isDateOfBirthdayValid &&
               isUnitCodeValid &&
               isRNTRCeValid &&
               isDocumentNumberValid &&
               isDateOfIssueValid &&
-              isSeriesValid &&
               isPatronymicValid &&
               isSurnameValid &&
               isPasswordValid &&
               isNameValid &&
               isLoginValid
-            )
+            ) || !(!series || (series && isSeriesValid))
+            // && (series || !(series && isSeriesValid))
           }
         >
           Зареєструватись
@@ -276,7 +302,11 @@ FirstStep.propTypes = {
   password: PropTypes.string.isRequired,
   setLoginValid: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-  showError: PropTypes.bool.isRequired
+  showError: PropTypes.bool.isRequired,
+  isDateOfBirthdayValid: PropTypes.bool.isRequired,
+  dateOfBirthdayChanged: PropTypes.func.isRequired,
+  dateOfBirthdayValid: PropTypes.func.isRequired,
+  dateOfBirthday: PropTypes.string.isRequired
 };
 
 export default FirstStep;

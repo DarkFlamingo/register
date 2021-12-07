@@ -22,8 +22,8 @@ class Blank {
     }
   }
 
-  async getAllBlanks() {
-    const blanks = await this._blankRepository.getAllBlanksForManage();
+  async getAllBlanks(userId) {
+    const blanks = await this._blankRepository.getAllBlanksForManage(userId);
 
     return blanks;
   }

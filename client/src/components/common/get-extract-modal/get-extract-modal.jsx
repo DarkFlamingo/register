@@ -2,10 +2,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useAction } from 'src/hooks/useAction';
-import { Modal, Button, Form, Select } from 'src/components/common/common';
+import { Modal, Button, Form } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
 import { extract as extractService } from 'src/services/services';
-import { ISSUE_CODE } from 'src/common/constants/constants';
 import './styles.scss';
 
 const CheckBlankModal = ({ setOpen }) => {
@@ -16,8 +15,6 @@ const CheckBlankModal = ({ setOpen }) => {
 
   const [number, setNumber] = React.useState('');
   const [isNumberValid, setNumberValid] = React.useState(true);
-
-  const [option, setOption] = React.useState(null);
 
   const checkNumber = value => {
     const regExp = new RegExp('^[0-9]+$');
@@ -48,41 +45,17 @@ const CheckBlankModal = ({ setOpen }) => {
     let data = null;
     if (series) {
       if (number) {
-        if (option) {
-          data = await extractService.getExtract({
-            series,
-            number,
-            code: option.code
-          });
-        } else {
-          data = await extractService.getExtract({ series, number });
-        }
-      }
-
-      if (option) {
-        data = await extractService.getExtract({ series, code: option.code });
+        data = await extractService.getExtract({ series, number });
       } else {
         data = await extractService.getExtract({ series });
       }
     } else {
       if (number) {
-        if (option) {
-          data = await extractService.getExtract({ code: option.code, number });
-        } else {
-          data = await extractService.getExtract({ number });
-        }
-      } else if (option.code) {
-        data = await extractService.getExtract({ code: option.code });
+        data = await extractService.getExtract({ number });
       }
     }
+    console.log(data);
     setExtract(data);
-  };
-
-  const getOptions = () => {
-    return Object.entries(ISSUE_CODE).map(([key, value]) => ({
-      value: { code: key, name: value },
-      label: `${key}) ${value}`
-    }));
   };
 
   return (
@@ -116,14 +89,6 @@ const CheckBlankModal = ({ setOpen }) => {
                   value={number}
                 />
               </div>
-              <div className={'input-item'}>
-                <span>Код витрачання</span>
-                <Select
-                  className={'select-something'}
-                  options={getOptions()}
-                  onChange={obj => setOption(obj.value)}
-                />
-              </div>
             </div>
           </Form>
         </Modal.Description>
@@ -139,9 +104,7 @@ const CheckBlankModal = ({ setOpen }) => {
           icon="checkmark"
           onClick={handleAddBlank}
           positive
-          isDisabled={
-            !((number && isNumberValid) || (series && isSeriesValid) || option)
-          }
+          isDisabled={!((number && isNumberValid) && (series && isSeriesValid))}
         >
           Отримати
         </Button>

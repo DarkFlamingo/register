@@ -19,6 +19,14 @@ const Extract = ({ extract, onClose }) => {
     user: state.profile.user
   }));
 
+  const getData = () => {
+    try {
+      return JSON.parse(extract.params);
+    } catch (err) {
+      return null;
+    }
+  };
+
   return (
     <div className={'modal-custom'}>
       <div className={'modal-content'}>
@@ -43,12 +51,12 @@ const Extract = ({ extract, onClose }) => {
               <table div className={'extract-table'}>
                 <tr>
                   <td className={'extract-th'}>Параметри пошуку</td>
-                  <td className={'extract-th'}>Дата витрачання</td>
-                  <td className={'extract-th'}>Проплачено</td>
-                  <td className={'extract-th'}>Дані реєстратора</td>
+                  <td className={'extract-th'}>Номер витягу</td>
                   <td className={'extract-th'}>Чи є дані</td>
                   {!extract.isEmpty && (
                     <>
+                      <td className={'extract-th'}>Дата витрачання</td>
+                      <td className={'extract-th'}>Дані реєстратора</td>
                       <td className={'extract-th'}>Серія</td>
                       <td className={'extract-th'}>Код</td>
                       <td className={'extract-th'}>Причина</td>
@@ -56,18 +64,24 @@ const Extract = ({ extract, onClose }) => {
                   )}
                 </tr>
                 <tr>
-                  <td>{extract.params}</td>
-                  <td>{extract.issueDate}</td>
-                  <td>{`${
-                    extract.isPaid ? 'Проплачено' : 'Не проплачено'
+                  <td>{`Серія: ${getData(extract.params).series} Номер бланку: ${
+                    getData(extract.params).number
                   }`}</td>
-                  <td>{`${extract.user.passport.name} ${extract.user.passport.surname}`}</td>
+                  <td>{extract.number}</td>
                   <td>{`${extract.isEmpty ? 'Ні' : 'Так'}`}</td>
                   {!extract.isEmpty && (
                     <>
+                      <td>{extract.issueDate}</td>
+                      <td>{`${extract.user.passport.name} ${extract.user.passport.surname}`}</td>
                       <td>{extract.blank.series}</td>
-                      <td>{extract.blank.code.code}</td>
-                      <td>{extract.blank.code.name}</td>
+                      {extract.blank.code ? (
+                        <>
+                          <td>{extract.blank.code.code}</td>
+                          <td>{extract.blank.code.name}</td>
+                        </>
+                      ) : (
+                        <td>Бланк не витрачений</td>
+                      )}
                     </>
                   )}
                 </tr>

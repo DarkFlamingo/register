@@ -15,6 +15,11 @@ class Extract extends Abstract {
     this._codeModel = codeModel;
   }
 
+  getNextNumber() {
+    return this.model.findAll({ order: [['number', 'DESC']] });
+  }
+
+
   getExtractForView(id) {
     return this.model.findOne({
       group: [],
@@ -39,7 +44,7 @@ class Extract extends Abstract {
           attributes: ['series']
         }
       ],
-      attributes: ['id', 'issueDate', 'params', 'isEmpty', 'isPaid'],
+      attributes: ['id', 'issueDate', 'params', 'isEmpty', 'isPaid', 'number'],
       where: { id }
     });
   }

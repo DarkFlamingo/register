@@ -8,11 +8,12 @@ class Extract {
   }
 
   async addExtract(user, data, params) {
-    const { code, name, series, number } = params;
+    const { series, number } = params;
+
+    const lastItem = await this._extractRepository.getNextNumber();
+    const nextNumber = lastItem[0].number;
 
     const blank = await this._blankRepository.getBlankFromFilter({
-      code,
-      name,
       series,
       number
     });
@@ -24,6 +25,7 @@ class Extract {
         params: JSON.stringify(params),
         blankId: blank.id,
         isEmpty: false,
+        number: nextNumber,
         isPaid: true
       });
 
@@ -38,6 +40,7 @@ class Extract {
         userId: user.id,
         params: JSON.stringify(params),
         blankId: null,
+        number: nextNumber,
         isEmpty: true,
         isPaid: true
       });

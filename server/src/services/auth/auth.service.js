@@ -34,8 +34,10 @@ class Auth {
       dateOfExpiry,
       dateOfIssue,
       documentNumber,
-      RNTRC
+      RNTRC,
+      birthday
     } = body;
+
     const authorityId = newAthorities.id;
     const newPassport = await this._passportRepository.addPassport({
       name,
@@ -46,7 +48,8 @@ class Auth {
       dateOfIssue,
       documentNumber,
       RNTRC,
-      authorityId
+      authorityId,
+      birthday
     });
 
     const passportId = newPassport.id;

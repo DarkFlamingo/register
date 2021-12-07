@@ -42,6 +42,9 @@ const RegistrationForm = ({ onRegister }) => {
   const [unitCode, setUnitCode] = React.useState('');
   const [isUnitCodeValid, setUnitCodeValid] = React.useState(true);
 
+  const [dateOfBirthday, setDateOfBirthday] = React.useState('');
+  const [isDateOfBirthdayValid, dateOfBirthdayValid] = React.useState(true);
+
   const [isLoading, setLoading] = React.useState(false);
 
   const loginChanged = value => {
@@ -76,13 +79,21 @@ const RegistrationForm = ({ onRegister }) => {
 
   const seriesChanged = value => {
     setSeries(value);
-    setSeriesValid(true);
+    const regExp = new RegExp('^[а-я]', 'i');
+    if (value) setSeriesValid(regExp.test(value) && value.length === 2);
+    else setSeriesValid(true);
     setShowError(false);
   };
 
   const dateOfExpiryChanged = value => {
     setDateOfExpiry(value);
     setDateOfExpiryValid(true);
+    setShowError(false);
+  };
+
+  const dateOfBirthdayChanged = value => {
+    setDateOfBirthday(value);
+    dateOfBirthdayValid(true);
     setShowError(false);
   };
 
@@ -95,7 +106,7 @@ const RegistrationForm = ({ onRegister }) => {
   const documentNumberChanged = value => {
     setDocumentNumber(value);
     const regExp = new RegExp('^[0-9]+$');
-    setDocumentNumberValid(regExp.test(value));
+    setDocumentNumberValid(regExp.test(value) && value.length === 9);
     setShowError(false);
   };
 
@@ -141,7 +152,8 @@ const RegistrationForm = ({ onRegister }) => {
           unitCode,
           unitName,
           unitAddress,
-          isActive: true
+          isActive: true,
+          birthday: dateOfBirthday
         });
 
         if (data.status >= 400 && data.status < 500) {
@@ -213,6 +225,10 @@ const RegistrationForm = ({ onRegister }) => {
           password={password}
           setLoginValid={setLoginValid}
           showError={showError}
+          isDateOfBirthdayValid={isDateOfBirthdayValid}
+          dateOfBirthdayChanged={dateOfBirthdayChanged}
+          dateOfBirthdayValid={dateOfBirthdayValid}
+          dateOfBirthday={dateOfBirthday}
         />
       </Form>
       <Message>

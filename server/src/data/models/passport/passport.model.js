@@ -37,6 +37,10 @@ const init = orm => {
         allowNull: false,
         type: DataTypes.STRING,
         unique: true
+      },
+      birthday: {
+        allowNull: false,
+        type: DataTypes.DATE
       }
     },
     { timestamps: false, createdAt: false, updatedAt: false }

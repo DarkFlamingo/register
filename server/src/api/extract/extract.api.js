@@ -9,9 +9,9 @@ const initExtract = (Router, services) => {
     ExtractApiPath.ROOT,
     checkRoles([Role.Admin, Role.Registrar]),
     (req, res, next) => {
-      const { code, name, series, number, ...data } = req.body;
+      const { series, number, ...data } = req.body;
       extractService
-        .addExtract(req.user, data, { code, name, series, number })
+        .addExtract(req.user, data, { series, number })
         .then(extract => res.send(extract))
         .catch(next);
     }

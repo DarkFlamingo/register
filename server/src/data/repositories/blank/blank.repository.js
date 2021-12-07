@@ -36,21 +36,17 @@ class Blank extends Abstract {
     return null;
   }
 
-  getBlankFromFilter({ code, name, series, number }) {
-    let where = this.getWhereCondition({ series, number });
-    let secondWhere = this.getWhereConditionSecond({ code, name });
-
-    if (where) {
-      if (secondWhere) {
+  getBlankFromFilter({ series, number }) {
+    if (series) {
+      if (number) {
         return this.model.findOne({
           group: ['blanks.id', 'code.id'],
           include: [
             {
-              model: this._codeModel,
-              where: secondWhere
+              model: this._codeModel
             }
           ],
-          where: where
+          where: { number, series }
         });
       } else {
         return this.model.findOne({
@@ -60,31 +56,24 @@ class Blank extends Abstract {
               model: this._codeModel
             }
           ],
-          where: where
-        });
-      }
-    } else {
-      if (secondWhere) {
-        return this.model.findOne({
-          group: ['blanks.id', 'code.id'],
-          include: [
-            {
-              model: this._codeModel,
-              where: secondWhere
-            }
-          ]
-        });
-      } else {
-        return this.model.findOne({
-          group: ['blanks.id', 'code.id'],
-          include: [
-            {
-              model: this._codeModel
-            }
-          ]
+          where: { series }
         });
       }
     }
+
+    if (number) {
+      return this.model.findOne({
+        group: ['blanks.id', 'code.id'],
+        include: [
+          {
+            model: this._codeModel
+          }
+        ],
+        where: { number }
+      });
+    }
+
+    return null;
   }
 
   getBlankBySeriesAndNumber({ number, series }) {
@@ -101,7 +90,7 @@ class Blank extends Abstract {
     });
   }
 
-  getAllBlanksForManage() {
+  getAllBlanksForManage(userId) {
     return this.model.findAll({
       group: ['blanks.id', 'code.id'],
       attributes: ['issueDate', 'series', 'number', 'id'],
@@ -110,7 +99,8 @@ class Blank extends Abstract {
           model: this._codeModel,
           attributes: ['code', 'name']
         }
-      ]
+      ],
+      where: { userId: userId }
     });
   }
 

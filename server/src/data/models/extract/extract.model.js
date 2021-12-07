@@ -4,6 +4,10 @@ const init = orm => {
   const Extract = orm.define(
     'extracts',
     {
+      number: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
       issueDate: {
         allowNull: false,
         type: DataTypes.DATE

@@ -17,7 +17,7 @@ const initBlank = (Router, services) => {
     checkRoles([Role.Admin, Role.Registrar]),
     (req, res, next) =>
       blankService
-        .getAllBlanks(req.query)
+        .getAllBlanks(req.user.id)
         .then(blanks => res.send(blanks))
         .catch(next)
   );
