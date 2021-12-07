@@ -4,6 +4,10 @@ const init = orm => {
   const Blank = orm.define(
     'blanks',
     {
+      createdDate: {
+        allowNull: true,
+        type: DataTypes.DATE
+      },
       issueDate: {
         allowNull: true,
         type: DataTypes.DATE

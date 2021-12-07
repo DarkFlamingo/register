@@ -16,6 +16,15 @@ const CheckBlankModal = ({ setOpen }) => {
   const [number, setNumber] = React.useState('');
   const [isNumberValid, setNumberValid] = React.useState(true);
 
+  const [name, setName] = React.useState('');
+  const [isNameValid, setIsNameValid] = React.useState(true);
+
+  const [surname, setSurname] = React.useState('');
+  const [isSurnameValid, setIsSurnameValid] = React.useState(true);
+
+  const [patronymic, setPatronymic] = React.useState('');
+  const [isPatronymicValid, setIsPatronymicValid] = React.useState(true);
+
   const checkNumber = value => {
     const regExp = new RegExp('^[0-9]+$');
     return regExp.test(value) && (value.length === 6 || value.length === 7);
@@ -41,6 +50,21 @@ const CheckBlankModal = ({ setOpen }) => {
     setNumber(value);
   };
 
+  const nameChanged = value => {
+    setIsNameValid(value);
+    setName(value);
+  };
+
+  const surnameChanged = value => {
+    setIsSurnameValid(value);
+    setSurname(value);
+  };
+
+  const patronymicChanged = value => {
+    setIsPatronymicValid(value);
+    setPatronymic(value);
+  };
+
   const handleAddBlank = async () => {
     let data = null;
     if (series) {
@@ -55,7 +79,7 @@ const CheckBlankModal = ({ setOpen }) => {
       }
     }
     console.log(data);
-    setExtract(data);
+    setExtract({ ...data, receiver: { name, surname, patronymic } });
   };
 
   return (
@@ -64,6 +88,38 @@ const CheckBlankModal = ({ setOpen }) => {
       <Modal.Content image>
         <Modal.Description>
           <Form name="checkBlankForm" size="large">
+            <div className={'input-wrapper'}>
+              <div className={'input-item'}>
+                <span>Прізвище</span>
+                <Form.Input
+                  fluid
+                  placeholder="Прізвище"
+                  onChange={ev => surnameChanged(ev.target.value)}
+                  onBlur={() => setIsSurnameValid(surname)}
+                  value={surname}
+                />
+              </div>
+              <div className={'input-item'}>
+                <span>Імя</span>
+                <Form.Input
+                  fluid
+                  placeholder="Імя"
+                  onChange={ev => nameChanged(ev.target.value)}
+                  onBlur={() => setIsNameValid(name)}
+                  value={name}
+                />
+              </div>
+              <div className={'input-item'}>
+                <span>Побатькові</span>
+                <Form.Input
+                  fluid
+                  placeholder="Побатькові"
+                  onChange={ev => patronymicChanged(ev.target.value)}
+                  onBlur={() => setIsPatronymicValid(patronymic)}
+                  value={patronymic}
+                />
+              </div>
+            </div>
             <div className={'input-wrapper'}>
               <div className={'input-item'}>
                 <span>Серія бланку</span>
@@ -104,7 +160,20 @@ const CheckBlankModal = ({ setOpen }) => {
           icon="checkmark"
           onClick={handleAddBlank}
           positive
-          isDisabled={!((number && isNumberValid) && (series && isSeriesValid))}
+          isDisabled={
+            !(
+              number &&
+              isNumberValid &&
+              series &&
+              isSeriesValid &&
+              name &&
+              isNameValid &&
+              surname &&
+              isSurnameValid &&
+              patronymic &&
+              isPatronymicValid
+            )
+          }
         >
           Отримати
         </Button>

@@ -10,8 +10,6 @@ import {
   Image,
   ManageRegistrarsModal,
   ManageUsersModal,
-  GetExtractModal,
-  Extract,
   LogsModal,
   BlankCheckResult
 } from 'src/components/common/common';
@@ -22,19 +20,17 @@ const MainAdmin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isManageRegistrars, setIsManageRegistrars] = useState(false);
   const [isManageUsers, setIsManageUsers] = useState(false);
-  const [isGetExtract, setIsGetExtract] = useState(false);
   const [isLogsModal, setIsLogsModal] = useState(false);
 
-  const { blank, extract } = useSelector(state => ({
-    blank: state.blank.validBlank,
-    extract: state.extract.extract
+  const { blank } = useSelector(state => ({
+    blank: state.blank.validBlank
   }));
 
   const setOpen = isOpen => {
     setIsModalOpen(isOpen);
   };
 
-  const { checkBlank, setExtract, setValidBlank } = useAction();
+  const { checkBlank, setValidBlank } = useAction();
 
   const handleCheckBlank = async ({ series, number }) => {
     checkBlank({ series, number });
@@ -67,17 +63,6 @@ const MainAdmin = () => {
       </Grid.Row>
       <Grid.Row className={styles['main-user-check-blank']}>
         <div className={styles['admin-panel']}>
-          <Modal
-            onClose={() => setIsGetExtract(false)}
-            onOpen={() => setIsGetExtract(true)}
-            open={isGetExtract}
-            trigger={<Button>Отримати витяг</Button>}
-          >
-            <GetExtractModal setOpen={setIsGetExtract} />
-          </Modal>
-          {extract && (
-            <Extract extract={extract} onClose={() => setExtract(null)} />
-          )}
           <Button onClick={() => setIsManageUsers(true)}>
             Зареєструвати реєстратора
           </Button>

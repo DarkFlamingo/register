@@ -6,7 +6,7 @@ const init = orm => {
     {
       number: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
       },
       issueDate: {
         allowNull: false,

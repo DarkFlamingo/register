@@ -6,19 +6,20 @@ class Extract extends Abstract {
     userModel,
     passportModel,
     blankModel,
-    codeModel
+    codeModel,
+    organizationModel
   }) {
     super(extractModel);
     this._userModel = userModel;
     this._passportModel = passportModel;
     this._blankModel = blankModel;
     this._codeModel = codeModel;
+    this._organizationModel = organizationModel;
   }
 
   getNextNumber() {
     return this.model.findAll({ order: [['number', 'DESC']] });
   }
-
 
   getExtractForView(id) {
     return this.model.findOne({
@@ -39,9 +40,22 @@ class Extract extends Abstract {
             {
               model: this._codeModel,
               attributes: ['name', 'code']
+            },
+            {
+              model: this._userModel,
+              include: [
+                {
+                  model: this._passportModel,
+                  attributes: ['name', 'surname']
+                },
+                {
+                  model: this._organizationModel,
+                  attributes: ['organizationName']
+                }
+              ]
             }
           ],
-          attributes: ['series']
+          attributes: ['series', 'number', 'issueDate', 'createdDate']
         }
       ],
       attributes: ['id', 'issueDate', 'params', 'isEmpty', 'isPaid', 'number'],

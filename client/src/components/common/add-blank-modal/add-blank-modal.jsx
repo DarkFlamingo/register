@@ -38,7 +38,8 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
   const handleAddBlank = () => {
     addBlank({
       series,
-      number
+      number,
+      createdDate: Date.now()
     });
     setOpen(false);
   };

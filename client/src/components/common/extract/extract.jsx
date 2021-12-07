@@ -50,40 +50,59 @@ const Extract = ({ extract, onClose }) => {
             <div className={'extract-table-wrapper'}>
               <table div className={'extract-table'}>
                 <tr>
-                  <td className={'extract-th'}>Параметри пошуку</td>
                   <td className={'extract-th'}>Номер витягу</td>
+                  <td className={'extract-th'}>Дата видачі</td>
+                  <td className={'extract-th'}>
+                    Дані особи, що звернулась за витягом
+                  </td>
+                  <td className={'extract-th'}>Параметри пошуку</td>
                   <td className={'extract-th'}>Чи є дані</td>
                   {!extract.isEmpty && (
                     <>
+                      <td className={'extract-th'}>Серія бланку</td>
+                      <td className={'extract-th'}>Номер бланку</td>
+                      <td className={'extract-th'}>Код витрачання</td>
+                      <td className={'extract-th'}>Причина витрачання</td>
                       <td className={'extract-th'}>Дата витрачання</td>
-                      <td className={'extract-th'}>Дані реєстратора</td>
-                      <td className={'extract-th'}>Серія</td>
-                      <td className={'extract-th'}>Код</td>
-                      <td className={'extract-th'}>Причина</td>
+                      <td className={'extract-th'}>Дані нотаріуса</td>
+                      <td className={'extract-th'}>Дата створення</td>
                     </>
                   )}
+                  <td className={'extract-th'}>Дані реєстратора</td>
                 </tr>
                 <tr>
-                  <td>{`Серія: ${getData(extract.params).series} Номер бланку: ${
-                    getData(extract.params).number
-                  }`}</td>
                   <td>{extract.number}</td>
+                  <td>{extract.issueDate}</td>
+                  <td>
+                    {`${extract.receiver.surname} ${extract.receiver.name} ${extract.receiver.patronymic}`}
+                  </td>
+                  <td>{`Серія: ${
+                    getData(extract.params).series
+                  } Номер бланку: ${getData(extract.params).number}`}</td>
                   <td>{`${extract.isEmpty ? 'Ні' : 'Так'}`}</td>
                   {!extract.isEmpty && (
                     <>
-                      <td>{extract.issueDate}</td>
-                      <td>{`${extract.user.passport.name} ${extract.user.passport.surname}`}</td>
                       <td>{extract.blank.series}</td>
+                      <td>{extract.blank.number}</td>
                       {extract.blank.code ? (
                         <>
                           <td>{extract.blank.code.code}</td>
                           <td>{extract.blank.code.name}</td>
                         </>
                       ) : (
-                        <td>Бланк не витрачений</td>
+                        <>
+                          <td>Бланк не витрачений</td>
+                          <td></td>
+                        </>
                       )}
+                      <td>{extract.blank.issueDate}</td>
+                      <td>
+                        {extract.blank.user.organization.organizationName}
+                      </td>
+                      <td>{extract.blank.createdDate}</td>
                     </>
                   )}
+                  <td>{`${extract.user.passport.name} ${extract.user.passport.surname}`}</td>
                 </tr>
               </table>
             </div>

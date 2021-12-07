@@ -58,7 +58,8 @@ const extract = new Extract({
   blankModel: BlankModel,
   codeModel: CodeModel,
   passportModel: PassportModel,
-  userModel: UserModel
+  userModel: UserModel,
+  organizationModel: OrganizationModel
 });
 
 const log = new Log({

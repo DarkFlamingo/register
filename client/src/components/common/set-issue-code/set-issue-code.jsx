@@ -6,8 +6,6 @@ import { ISSUE_CODE } from 'src/common/constants/constants';
 import styles from './styles.module.scss';
 
 const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
-  const [issueDate, setIssueDate] = React.useState(blank.issueDate);
-
   const [option, setOption] = React.useState(
     blank.code
       ? {
@@ -21,7 +19,7 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
     if (option) {
       updateBlank({
         id: blank.id,
-        issueDate,
+        issueDate: Date.now(),
         code: option.code,
         name: option.name
       });
@@ -47,17 +45,6 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
           <Form name="checkBlankForm" size="large">
             <div className={styles['input-wrapper']}>
               <div className={styles['input-item']}>
-                <label>Дата витрачання</label>
-                <Form.Input
-                  fluid
-                  type="date"
-                  iconPosition="left"
-                  placeholder="Дата витрачання"
-                  onChange={ev => setIssueDate(ev.target.value)}
-                  value={issueDate}
-                />
-              </div>
-              <div className={styles['input-item']}>
                 <label>Код витрачання</label>
                 <Select
                   options={getOptions()}
@@ -79,7 +66,7 @@ const UpdateBlankModal = ({ setOpen, updateBlank, blank }) => {
           icon="checkmark"
           onClick={handleAddBlank}
           positive
-          isDisabled={!(option && issueDate)}
+          isDisabled={!(option)}
         >
           Оновити
         </Button>
