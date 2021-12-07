@@ -32,6 +32,7 @@ import ManageBlanks from './manage-blanks/manage-blanks';
 import ManageBlanksIssue from './manage-blanks-issue/manage-blanks-issue';
 import BlankCheckResult from './blank-check-result/blank-check-result';
 import SetBlankIssueCode from './set-issue-code/set-issue-code';
+import ShowBlanks from './show-blanks/manage-blanks';
 
 export {
   Header,
@@ -65,5 +66,6 @@ export {
   ManageBlanks,
   BlankCheckResult,
   SetBlankIssueCode,
-  ManageBlanksIssue
+  ManageBlanksIssue,
+  ShowBlanks
 };

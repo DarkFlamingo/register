@@ -59,16 +59,26 @@ const Extract = ({ extract, onClose }) => {
                   <td className={'extract-th'}>Чи є дані</td>
                   {!extract.isEmpty && (
                     <>
-                      <td className={'extract-th'}>Серія бланку</td>
-                      <td className={'extract-th'}>Номер бланку</td>
-                      <td className={'extract-th'}>Код витрачання</td>
-                      <td className={'extract-th'}>Причина витрачання</td>
-                      <td className={'extract-th'}>Дата витрачання</td>
+                      <td className={'extract-th'}>Серія бланка</td>
+                      <td className={'extract-th'}>Номер бланка</td>
+                      {extract.blank.code ? (
+                        <>
+                          <td className={'extract-th'}>Код витрачання</td>
+                          <td className={'extract-th'}>Причина витрачання</td>
+                          <td className={'extract-th'}>
+                            Дата витрачання бланка
+                          </td>
+                        </>
+                      ) : (
+                        <>
+                          <td className={'extract-th'}>Статус витрачання</td>
+                        </>
+                      )}
                       <td className={'extract-th'}>Дані нотаріуса</td>
                       <td className={'extract-th'}>Дата створення</td>
                     </>
                   )}
-                  <td className={'extract-th'}>Дані реєстратора</td>
+                  <td className={'extract-th'}>Ким виданий</td>
                 </tr>
                 <tr>
                   <td>{extract.number}</td>
@@ -88,16 +98,19 @@ const Extract = ({ extract, onClose }) => {
                         <>
                           <td>{extract.blank.code.code}</td>
                           <td>{extract.blank.code.name}</td>
+                          <td>{extract.blank.issueDate}</td>
                         </>
                       ) : (
                         <>
                           <td>Бланк не витрачений</td>
-                          <td></td>
                         </>
                       )}
-                      <td>{extract.blank.issueDate}</td>
                       <td>
-                        {extract.blank.user.organization.organizationName}
+                        {`${extract.blank.user.passport.name}
+                        ${extract.blank.user.passport.surname}
+                        ${extract.blank.user.passport.patronymic}`}
+                        <br />
+                        {`${extract.blank.user.organization.organizationName}`}
                       </td>
                       <td>{extract.blank.createdDate}</td>
                     </>

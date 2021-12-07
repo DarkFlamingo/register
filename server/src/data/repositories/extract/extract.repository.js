@@ -46,7 +46,7 @@ class Extract extends Abstract {
               include: [
                 {
                   model: this._passportModel,
-                  attributes: ['name', 'surname']
+                  attributes: ['name', 'surname', 'patronymic']
                 },
                 {
                   model: this._organizationModel,

@@ -13,7 +13,8 @@ import {
   Extract,
   ManageBlanks,
   BlankCheckResult,
-  ManageBlanksIssue
+  ManageBlanksIssue,
+  ShowBlanks
 } from 'src/components/common/common';
 import { REGISTAR_AVA_URL } from 'src/common/constants/constants';
 import { blank as blankService } from 'src/services/services';
@@ -25,6 +26,7 @@ const MainRegistrar = () => {
   const [isGetExtract, setIsGetExtract] = useState(false);
   const [isManageBlanksModal, setIsManageBlanksModal] = useState(false);
   const [isManageBlanksModalForIssue, setIsManageBlanksModalForIssue] = useState(false);
+  const [isShowBlanks, setIsShowBlanks] = useState(false);
 
   const { blank, extract } = useSelector(state => ({
     blank: state.blank.validBlank,
@@ -57,6 +59,12 @@ const MainRegistrar = () => {
           >
             <AddBlankModal setOpen={setIsAddBlank} addBlank={handleAddBlank} />
           </Modal>
+          <Button onClick={() => setIsShowBlanks(true)}>
+            Переглянути бланки
+          </Button>
+          {isShowBlanks && (
+            <ShowBlanks onClose={() => setIsShowBlanks(false)} />
+          )}
         </Grid.Column>
         <Grid.Column>
           <Image
@@ -70,9 +78,7 @@ const MainRegistrar = () => {
             Змінити бланк
           </Button>
           {isManageBlanksModal && (
-            <ManageBlanks
-              onClose={() => setIsManageBlanksModal(false)}
-            />
+            <ManageBlanks onClose={() => setIsManageBlanksModal(false)} />
           )}
           <Button onClick={() => setIsManageBlanksModalForIssue(true)}>
             Внести дані витрачання

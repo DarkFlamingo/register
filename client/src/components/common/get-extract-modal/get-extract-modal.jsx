@@ -100,10 +100,10 @@ const CheckBlankModal = ({ setOpen }) => {
                 />
               </div>
               <div className={'input-item'}>
-                <span>Імя</span>
+                <span>{`Ім'я`}</span>
                 <Form.Input
                   fluid
-                  placeholder="Імя"
+                  placeholder={`Ім'я`}
                   onChange={ev => nameChanged(ev.target.value)}
                   onBlur={() => setIsNameValid(name)}
                   value={name}
