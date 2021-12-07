@@ -16,6 +16,7 @@ const ManageRegistrarsModal = ({ onClose }) => {
   });
   const [open, setOpen] = React.useState(false);
   const [passport, setPassport] = React.useState(null);
+  const [selectedId, setSelectedId] = React.useState(null);
 
   const changeFilter = (key, value) => {
     setFilter({ ...filter, [key]: value });
@@ -158,12 +159,19 @@ const ManageRegistrarsModal = ({ onClose }) => {
                   </td>
                   <td>
                     <Modal
-                      onClose={() => setOpen(false)}
+                      onClose={() => {
+                        setSelectedId(null);
+                        setOpen(false);
+                      }}
                       onOpen={() => setOpen(true)}
                       open={open}
-                      trigger={<Button>Зареєструвати реєстратора</Button>}
+                      trigger={
+                        <Button onClick={() => setSelectedId(el.id)}>
+                          Зареєструвати реєстратора
+                        </Button>
+                      }
                     >
-                      <MakeRegistrar setOpen={setOpen} id={el.id} />
+                      <MakeRegistrar setOpen={setOpen} id={selectedId} />
                     </Modal>
                   </td>
                 </tr>
