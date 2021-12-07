@@ -116,24 +116,32 @@ const ManageBlanksIssue = ({ onClose }) => {
                         )}
                       </th>
                     </tr>
-                    {blanks.map(el => (
-                      <tr key={el.id}>
-                        <td>{el.series}</td>
-                        <td>{el.number}</td>
-                        <td>
-                          {el.code ? (
-                            'Бланк уже витрачений'
-                          ) : (
-                            <Button
-                              className={styles['button-edit']}
-                              onClick={() => setBlank(el)}
-                            >
-                              Внести дані про витрачання
-                            </Button>
-                          )}
-                        </td>
+                    {blanks && blanks.length > 0 ? (
+                      blanks.map(el => (
+                        <tr key={el.id}>
+                          <td>{el.series}</td>
+                          <td>{el.number}</td>
+                          <td>
+                            {el.code ? (
+                              'Бланк уже витрачений'
+                            ) : (
+                              <Button
+                                className={styles['button-edit']}
+                                onClick={() => setBlank(el)}
+                              >
+                                Внести дані про витрачання
+                              </Button>
+                            )}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr className={styles['no-blanks']}>
+                        <td></td>
+                        <td>Даних немає</td>
+                        <td></td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               )}

@@ -133,28 +133,38 @@ const ManageBlanks = ({ onClose, isUpdateFully }) => {
                         />
                       </th>
                     </tr>
-                    {blanks.map(el => (
-                      <tr key={el.id}>
-                        <td>
-                          <Button
-                            className={styles['button-edit']}
-                            onClick={() => setBlank(el)}
-                          >
-                            Редагувати
-                          </Button>
-                        </td>
-                        <td>{el.series}</td>
-                        <td>{el.number}</td>
-                        {el.code ? (
-                          <>
-                            <td>{el.code.code}</td>
-                            <td>{el.code.name}</td>
-                          </>
-                        ) : (
-                          <td>Бланк не витрачений</td>
-                        )}
+                    {blanks && blanks.length > 0 ? (
+                      blanks.map(el => (
+                        <tr key={el.id}>
+                          <td>
+                            <Button
+                              className={styles['button-edit']}
+                              onClick={() => setBlank(el)}
+                            >
+                              Редагувати
+                            </Button>
+                          </td>
+                          <td>{el.series}</td>
+                          <td>{el.number}</td>
+                          {el.code ? (
+                            <>
+                              <td>{el.code.code}</td>
+                              <td>{el.code.name}</td>
+                            </>
+                          ) : (
+                            <td>Бланк не витрачений</td>
+                          )}
+                        </tr>
+                      ))
+                    ) : (
+                      <tr className={styles['no-blanks']}>
+                        <td></td>
+                        <td></td>
+                        <td>Даних немає</td>
+                        <td></td>
+                        <td></td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               )}
