@@ -36,9 +36,9 @@ export default models => {
 
   Position.hasOne(User);
 
-  OldValue.belongsTo(Log);
+  OldValue.hasOne(Log);
 
-  Log.hasOne(OldValue);
+  Log.belongsTo(OldValue);
   Log.belongsTo(User);
   Log.belongsTo(Blank);
 

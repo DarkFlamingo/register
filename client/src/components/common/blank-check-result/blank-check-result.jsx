@@ -7,7 +7,7 @@ import './styles.scss';
 const BlankCheckResult = ({ blank, onClose }) => {
   return (
     <>
-      <div className={'modal-custom'}>
+      <div className={'modal-custom-check'}>
         <div className={'modal-content'}>
           <div className={'blank-check-wrapper'}>
             {blank && <BlankItem blank={blank} />}

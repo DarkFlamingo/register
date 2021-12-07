@@ -15,6 +15,7 @@ const ManageRegistrarsModal = ({ onClose }) => {
     patronymic: ''
   });
   const [open, setOpen] = React.useState(false);
+  const [passport, setPassport] = React.useState(null);
 
   const changeFilter = (key, value) => {
     setFilter({ ...filter, [key]: value });
@@ -57,6 +58,42 @@ const ManageRegistrarsModal = ({ onClose }) => {
 
   return (
     <div className={styles['modal-custom-users']}>
+      {passport && (
+        <div className={styles['modal-custom-users']}>
+          <div className={styles['passport-table-content']}>
+            <div className={styles.list}>
+              <table>
+                <tr>
+                  <th>{`Ім'я`}</th>
+                  <td>{passport.name}</td>
+                </tr>
+                <tr>
+                  <th>Прізвище</th>
+                  <td>{passport.surname}</td>
+                </tr>
+                <tr>
+                  <th>По батькові</th>
+                  <td>{passport.patronymic}</td>
+                </tr>
+                <tr>
+                  <th>Дата народження</th>
+                  <td>{passport.birthday}</td>
+                </tr>
+                <tr>
+                  <th>Номер паспорту</th>
+                  <td>{passport.documentNumber}</td>
+                </tr>
+                <tr>
+                  <th>РНОКПП</th>
+                  <td>{passport.RNTRC}</td>
+                </tr>
+              </table>
+
+              <Button onClick={() => setPassport(null)}>Вихід</Button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className={styles['modal-content']}>
         <div className={styles['list-users']}>
           <table>
@@ -65,6 +102,7 @@ const ManageRegistrarsModal = ({ onClose }) => {
               <th>Імя</th>
               <th>Прізвище</th>
               <th>Побатькові</th>
+              <th>Паспортні дані</th>
               <th>Дія</th>
             </tr>
             <tr>
@@ -101,6 +139,7 @@ const ManageRegistrarsModal = ({ onClose }) => {
                 />
               </th>
               <th></th>
+              <th></th>
             </tr>
             {users &&
               users.map(el => (
@@ -109,6 +148,14 @@ const ManageRegistrarsModal = ({ onClose }) => {
                   <td>{el.passport.name}</td>
                   <td>{el.passport.surname}</td>
                   <td>{el.passport.patronymic}</td>
+                  <td>
+                    <Button
+                      className={styles['button-info']}
+                      onClick={() => setPassport(el.passport)}
+                    >
+                      Переглянути паспортні дані
+                    </Button>
+                  </td>
                   <td>
                     <Modal
                       onClose={() => setOpen(false)}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Form } from 'src/components/common/common';
 import { ButtonType } from 'src/common/enums/enums';
+import { blank as blankService } from 'src/services/services';
 import styles from './styles.module.scss';
 
 const CheckBlankModal = ({ setOpen, addBlank }) => {
@@ -10,6 +11,8 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
 
   const [number, setNumber] = React.useState('');
   const [isNumberValid, setNumberValid] = React.useState(true);
+
+  const [error, setError] = React.useState(false);
 
   const checkNumber = value => {
     const regExp = new RegExp('^[0-9]+$');
@@ -28,20 +31,27 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
   const seriesChanged = value => {
     setSeriesValid(checkSeries(value));
     setSeries(value);
+    setError(false);
   };
 
   const numberChanged = value => {
     setNumberValid(checkNumber(value));
     setNumber(value);
+    setError(false);
   };
 
-  const handleAddBlank = () => {
-    addBlank({
-      series,
-      number,
-      createdDate: Date.now()
-    });
-    setOpen(false);
+  const handleAddBlank = async () => {
+    const data = await blankService.checkBlank({ series, number });
+    if (data.isExist) {
+      setError(true);
+    } else {
+      addBlank({
+        series,
+        number,
+        createdDate: Date.now()
+      });
+      setOpen(false);
+    }
   };
 
   return (
@@ -77,6 +87,7 @@ const CheckBlankModal = ({ setOpen, addBlank }) => {
               </div>
             </div>
           </Form>
+          {error && (<div className={styles['error-add-label']}>Такий бланк уже існує</div>)}
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions className={styles['btn-wrapper']}>
